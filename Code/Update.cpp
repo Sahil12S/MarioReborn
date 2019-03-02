@@ -1,22 +1,10 @@
 #include "pch.h"
 #include "Engine.h"
 
-void Engine::update(float dtAsSeconds)
+void Engine::update()
 {
-	if (m_isNewLevelRequired)
-	{
-		loadLevel();
-	}
-
-	if (m_IsPlaying)
-	{
-		m_TimeRemaining -= dtAsSeconds;
-
-		if (m_TimeRemaining <= 0)
-		{
-			m_isNewLevelRequired = true;
-		}
-	}
-
-	m_MainView.setCenter(VideoMode::getDesktopMode().width / 2, VideoMode::getDesktopMode().height / 2);
+	m_LM.nextLevel();
+	//std::cout << "scale: " << m_Scale.x << ", " << m_Scale.y << std::endl;
+	m_LM.setScale(m_Scale.x, m_Scale.y);
+	m_LM.setOrigin(0, 0);
 }

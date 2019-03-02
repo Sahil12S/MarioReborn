@@ -1,30 +1,41 @@
 #pragma once
+#ifndef LEVEL_MANAGER_H
+#define LEVEL_MANAGER_H
+
 #include <SFML/Graphics.hpp>
+#include "TextureHolder.h"
 
-using namespace sf;
-using namespace std;
-
-class LevelManager
+class LevelManager : public sf::Drawable, public sf::Transformable
 {
 private:
-	Vector2i m_LevelSize;
-	Vector2f m_StartPosition;
+	sf::Texture m_LevelTexture;
 
-	//float m_TimeModifier = 1;
-	float m_BaseTimeLimit = 0;
-	int m_CurrentLevel = 0;
+	sf::VertexArray m_rVALevel;
+
+	sf::Vector2i m_LevelSize;
+
+	void readLevel(const std::string filename, std::vector< std::pair<int, int>>& level, sf::Vector2i& levelSize);
+
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+	{
+		states.transform *= getTransform();
+		states.texture = &m_LevelTexture;
+		target.draw(m_rVALevel, states);
+	}
 
 public:
+	// 16px tiles in our sprite sheet
 	const int TILE_SIZE = 16;
 	const int VERTS_IN_QUAD = 4;
 
-	float getTimeLimit();
+	//LevelManager(std::string filename);
 
-	Vector2f getStartPosition();
+	sf::Texture& setTexture(std::string filename);
 
-	pair<int, int>** nextLevel(VertexArray& rVaLevel);
-
-	Vector2i getLevelSize();
-
-	int getCurrentLevel();
+	sf::Vector2i getLevelSize();
+	
+	//void nextLevel(sf::VertexArray& rVALevel);
+	void nextLevel();
 };
+
+#endif // !LEVEL_MANAGER_H

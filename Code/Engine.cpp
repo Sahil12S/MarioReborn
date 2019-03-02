@@ -1,70 +1,49 @@
 #include "pch.h"
 #include "Engine.h"
+#include <iostream>
 
 Engine::Engine()
 {
-	// Get screen resolution and create an SFML window and View
-	Vector2f resolution;
-	resolution.x = VideoMode::getDesktopMode().width;
-	resolution.y = VideoMode::getDesktopMode().height;
+	// Get the screen resolution and create an SFML window and View
+	//sf::Vector2f resolution;
+	m_Resolution.x = sf::VideoMode::getDesktopMode().width;
+	m_Resolution.y = sf::VideoMode::getDesktopMode().height;
 
-	m_Window.create(VideoMode(resolution.x, resolution.y),
-		"Mario Bros. REBORN", Style::Fullscreen);
-	/*m_Window.create(VideoMode(1280, 720),
-		"Mario Bros. REBORN", Style::Default);*/
+	m_Window.create(sf::VideoMode(m_Resolution.x, m_Resolution.y),
+		"Mario", sf::Style::Fullscreen);
 
-	// Initialize the fullscreen view
-	m_MainView.setSize(resolution);
-	m_HudView.reset(
-		FloatRect(0, 0, resolution.x, resolution.y));
+	m_MainView.setSize(m_Resolution);
+	m_MainView.reset(sf::FloatRect(0, 0, m_Resolution.x, m_Resolution.y));
 
-	// Scale Factor
-	if (resolution.y > 800) {
-		m_ScaleFactor = resolution.y / 720;
-	}
-
-	// Get background
-	m_BackgroundTexture = TextureHolder::GetTexture(
-		"graphics/background.png");
+	m_BackgroundTexture = TextureHolder::GetTexture("graphics/background.png");
 
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
 
-	// Load texture for world vertex array
-	m_WorldTiles = TextureHolder::GetTexture("graphics/worldConstruct.png");
+	//m_TextureTiles = TextureHolder::GetTexture("graphics/mariotileset.png");
+	m_TextureTiles = m_LM.setTexture("graphics/mariotileset.png");
 }
 
 void Engine::run()
 {
-	// Timing
-	Clock clock;
+	sf::Clock clock;
+	setScale();
 
 	while (m_Window.isOpen())
 	{
-		Time dt = clock.restart();
+		sf::Time dt = clock.restart();
 
-		// Update the total game time
 		m_GameTimeTotal += dt;
-
-		// Make decimal fraction from the delta tile
 		float dtAsSeconds = dt.asSeconds();
 
-		// Call each part of game loop in turn
 		input();
-		update(dtAsSeconds);
-		draw();
+		update();
+		drawGame();
 	}
 }
 
-Engine::~Engine()
+void Engine::setScale()
 {
-	for (int i = 0; i < m_LM.getLevelSize().y; ++i)
-	{
-		for (int j = 0; j < m_LM.getLevelSize().x; ++j)
-		{
-			delete &m_ArrayLevel[i][j];
-
-		}
-		delete[] & m_ArrayLevel[i];
-	}
-	delete[] & m_ArrayLevel;
+	//std::cout << m_Resolution.x / PREF_RESOLUTION.x << std::endl;
+	m_Scale.x = m_Resolution.x / PREF_RESOLUTION.x;
+	m_Scale.y = m_Resolution.y / PREF_RESOLUTION.y;
 }
