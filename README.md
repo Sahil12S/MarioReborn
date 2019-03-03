@@ -10,3 +10,5 @@ An attempt to create game similar to our very favorite Super Mario Bros. using C
 - Get collision detection working so that Mario lands on ground.  
 - Get movements working.  
 - Move our Main View with Mario.  
+
+### (On hold while new concepts are practiced)
