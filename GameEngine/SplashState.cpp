@@ -1,5 +1,4 @@
-#include <iostream>
-#include "GameState.h"
+// #include "GameState.h"
 #include "SplashState.h"
 #include "MainMenuState.h"
 #include "DEFINITIONS.h"
@@ -11,7 +10,7 @@ namespace MarioEngine
 
     void SplashState::Init()
     {
-        std::cout << "Splash state" << std::endl;
+        Debug( "**Initialized** Splash State" );
         // m_Data->assets.LoadTexture( "Splash State Background", SPLASH_SCENE_BACKGROUND_FILEPATH );
 
         // m_BackgroundSprite.setTexture( m_Data->assets.GetTexture( "Splash State Background" ) );
@@ -36,7 +35,7 @@ namespace MarioEngine
         if ( m_Clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME )
         {
             // m_Data->machine.AddState( StateRef ( new MainMenuState ( m_Data ) ), true );
-            m_Data->machine.AddState( StateRef ( new GameState ( m_Data ) ), true );
+            m_Data->machine.AddState( StateRef ( new MainMenuState ( m_Data ) ), true );
 
         }
 
@@ -51,6 +50,6 @@ namespace MarioEngine
 
     void SplashState::InitKeyBinds()
     {
-        m_KeyBinds["Quit"] = m_Data->input.getSupportedKeys().at("Escape");
+        m_KeyBinds["QUIT"] = m_Data->input.getSupportedKeys().at("Escape");
     }
 }

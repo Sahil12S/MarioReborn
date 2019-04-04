@@ -1,5 +1,5 @@
 #include "GameSettingsState.h"
-#include <iostream>
+#include "DEFINITIONS.h"
 
 namespace MarioEngine
 {
@@ -8,7 +8,7 @@ namespace MarioEngine
 
     void GameSettingsState::Init()
     {
-        std::clog << "Game Settings State" << std::endl;
+        Debug( "Game Settings State" );
     }
 
     void GameSettingsState::InitKeyBinds()

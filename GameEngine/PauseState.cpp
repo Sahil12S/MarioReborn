@@ -1,6 +1,6 @@
 #include "PauseState.h"
 #include "MainMenuState.h"
-#include <iostream>
+#include "DEFINITIONS.h"
 
 namespace MarioEngine
 {
@@ -11,7 +11,7 @@ namespace MarioEngine
 
     void PauseState::Init()
     {
-        std::clog << "Pause State" << std::endl;
+        Debug( "Pause State" );
     }
 
     void PauseState::InitKeyBinds()
@@ -36,7 +36,7 @@ namespace MarioEngine
                 // TODO: Implement Going back to Game or to Main Menu
                 if ( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
                 {
-                    std::cout << "Key Pressed in Pause state" << std::endl;
+                    // std::cout << "Key Pressed in Pause state" << std::endl;
                     m_Data->machine.RemoveState();
                 }
                 if ( sf:: Keyboard::isKeyPressed( sf::Keyboard::M ) )

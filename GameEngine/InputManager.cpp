@@ -1,9 +1,12 @@
 #include "InputManager.h"
+#include "DEFINITIONS.h"
+#include <fstream>
 
 namespace MarioEngine
 {
     InputManager::InputManager()
     {
+        Debug( "Input Manager Initialized" )
         InitKeys();
     }
 
@@ -28,11 +31,37 @@ namespace MarioEngine
 
     void InputManager::InitKeys()
     {
+        // std::clog << "Init" << std::endl;
+        // Reading Key Bindings from file.
+        std::ifstream ifs ( GENERAL_KEY_BIND_FILEPATH );
+
+        if ( ifs.is_open() )
+        {
+            std::string key = "";
+            int keyValue = 0;
+
+            while ( ifs >> key >> keyValue )
+            {
+                m_SupportedKeys[key] = keyValue;
+            }
+        }
+
+        ifs.close();
+
+        Debug( "Default Key binds read" )
+
+        /*for ( auto key : m_SupportedKeys )
+        {
+            std::cout << key.first << " - " << key.second << std::endl;
+        }*/
+
+        /*
         m_SupportedKeys["Escape"] = sf::Keyboard::Key ::Escape;
         m_SupportedKeys["W"] = sf::Keyboard::Key::W;
         m_SupportedKeys["A"] = sf::Keyboard::Key::A;
         m_SupportedKeys["S"] = sf::Keyboard::Key::S;
         m_SupportedKeys["D"] = sf::Keyboard::Key::D;
+        */
     }
 
     std::map<std::string, int>& InputManager::getSupportedKeys()

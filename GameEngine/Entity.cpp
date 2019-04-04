@@ -1,12 +1,11 @@
 #include "Entity.h"
 #include "DEFINITIONS.h"
-#include <iostream>
 
 namespace MarioEngine
 {
     Entity::Entity( GameDataRef data ) : m_Data( std::move( data ) )
     {
-        std::clog << "Entity" << std::endl;
+        Debug( "Entity Initialized" )
         m_Shape.setSize( sf::Vector2f( 50.0f, 50.0f ) );
         m_Shape.setFillColor( sf::Color::White );
         m_MovementSpeed = ENTITY_MOVEMENT_SPEED;

@@ -30,8 +30,12 @@ namespace MarioEngine
 
         std::map<std::string, int> m_KeyBinds;
 
-        sf::Sprite m_BackgroundSprite;
+        sf::RectangleShape m_Background;
+
+        sf::Sprite m_PlayButton;
+
+        /*sf::Sprite m_BackgroundSprite;
         sf::Sprite m_TitleSprite;
-        sf::Font m_MenuFont;
+        sf::Font m_MenuFont;*/
     };
 }

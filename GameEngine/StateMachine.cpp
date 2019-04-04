@@ -1,5 +1,5 @@
 #include "StateMachine.h"
-#include <iostream>
+#include "DEFINITIONS.h"
 
 namespace MarioEngine
 {
@@ -14,7 +14,7 @@ namespace MarioEngine
         {
             m_States.pop();
         }
-        std::clog << "All states destroyed" << std::endl;
+        Debug( "All states destroyed" )
     }
 
     void StateMachine::AddState(MarioEngine::StateRef newState, bool isReplacing)
@@ -33,7 +33,7 @@ namespace MarioEngine
 
             if ( !m_States.empty() )
             {
-                std::clog << "Resumed top state" << std::endl;
+                Debug( "Resumed top state" )
                 m_States.top()->Resume();
             }
             m_IsRemoving = false;
@@ -48,7 +48,7 @@ namespace MarioEngine
                     m_States.pop();
                 } else
                 {
-                    std::clog << "Paused top state" << std::endl;
+                    Debug( "Paused top state" )
                     m_States.top()->Pause();
                 }
             }

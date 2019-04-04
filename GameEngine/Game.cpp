@@ -2,7 +2,6 @@
 #include "SplashState.h"
 
 #include <time.h>
-#include <iostream>
 
 namespace MarioEngine
 {

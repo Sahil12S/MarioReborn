@@ -1,6 +1,6 @@
 #include "GameState.h"
-#include <iostream>
 #include "PauseState.h"
+#include "DEFINITIONS.h"
 
 namespace MarioEngine
 {
@@ -12,18 +12,36 @@ namespace MarioEngine
 
     void GameState::Init()
     {
-        std::clog << "Game State" << std::endl;
+        // std::clog << "[DEBUG]: ";
+        Debug( "**Initialized** Game State" )
     }
 
-    // TODO: Implentation left for later.
+    // TODO: Implementation left for later.
     void GameState::InitKeyBinds()
     {
-        std::cout << "Keys initialized for Game State" << std::endl;
-        m_KeyBinds["QUIT"] = m_Data->input.getSupportedKeys().at( "Escape" );
+        std::ifstream ifs ( GAMESTATE_KEY_BIND_FILEPATH );
+
+        if ( ifs.is_open() )
+        {
+            std::string keyAction;
+            std::string key;
+
+            while ( ifs >> keyAction >> key )
+            {
+                m_KeyBinds[keyAction] = m_Data->input.getSupportedKeys().at( key );
+            }
+        }
+
+        ifs.close();
+
+        // std::clog << "[DEBUG]: ";
+        Debug( "Key bindings initialized for Game State" )
+
+        /*m_KeyBinds["QUIT"] = m_Data->input.getSupportedKeys().at( "Escape" );
         m_KeyBinds["MOVE_UP"] = m_Data->input.getSupportedKeys().at( "W" );
         m_KeyBinds["MOVE_LEFT"] = m_Data->input.getSupportedKeys().at( "A" );
         m_KeyBinds["MOVE_DOWN"] = m_Data->input.getSupportedKeys().at( "S" );
-        m_KeyBinds["MOVE_RIGHT"] = m_Data->input.getSupportedKeys().at( "D" );
+        m_KeyBinds["MOVE_RIGHT"] = m_Data->input.getSupportedKeys().at( "D" );*/
     }
 
     void GameState::HandleInput()
@@ -40,7 +58,7 @@ namespace MarioEngine
             if ( sf::Event::KeyPressed == event.type )
             {
                 // Check if game is paused
-                if ( sf::Keyboard::isKeyPressed( sf::Keyboard::P ) )
+                if ( sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["PAUSE"] ) ) )
                 {
                     m_Data->machine.AddState( StateRef ( new PauseState ( m_Data )), false );
                 }
