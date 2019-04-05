@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "MainMenuState.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     class SplashState : public State
     {

@@ -3,7 +3,7 @@
 
 #include <time.h>
 
-namespace MarioEngine
+namespace SSEngine
 {
     Game::Game(unsigned int width, unsigned int height, std::string title)
     {

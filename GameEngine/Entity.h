@@ -3,32 +3,38 @@
 #include <SFML/Graphics.hpp>
 #include "Game.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     class Entity
     {
-    private:
-        GameDataRef m_Data;
+    /*private:
+        GameDataRef m_Data;*/
 
-        bool upPressed;
+        /*bool upPressed;
         bool downPressed;
         bool leftPressed;
-        bool rightPressed;
+        bool rightPressed;*/
 
-    protected:
-        sf::RectangleShape m_Shape;
-        float m_MovementSpeed;
+    /*protected:
+        sf::Sprite m_Sprite;
+
+        float m_MovementSpeed;*/
 
     public:
-        Entity( GameDataRef data );
-        ~Entity() {};
+        // Entity( GameDataRef data );
+        // ~Entity() {};
 
-        virtual void Move( const float& dt, const float dir_x, const float dir_y );
+        virtual void Move( const float& dt, const float& dir_x, const float& dir_y ) = 0;
 
-        virtual void Update( float dt );
-        virtual void Draw();
+        // virtual void HandleInput() = 0;
 
-        void MoveUp();
+        virtual void Spawn( sf::Vector2f startPos ) = 0;
+
+        virtual void Update( float dt ) = 0;
+        virtual void Draw() = 0;
+
+        /* All movement specific to characters with their specific properties */
+        /*void MoveUp();
         void MoveLeft();
         void MoveDown();
         void MoveRight();
@@ -36,6 +42,6 @@ namespace MarioEngine
         void StopUp();
         void StopLeft();
         void StopDown();
-        void StopRight();
+        void StopRight();*/
     };
 }

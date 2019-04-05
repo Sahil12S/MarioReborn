@@ -2,9 +2,9 @@
 #include "MainMenuState.h"
 #include "DEFINITIONS.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
-    PauseState::PauseState(MarioEngine::GameDataRef data) : m_Data( std::move( data ) )
+    PauseState::PauseState(SSEngine::GameDataRef data) : m_Data( std::move( data ) )
     {
 
     }
@@ -50,7 +50,7 @@ namespace MarioEngine
 
     void PauseState::Update(float dt)
     {
-
+        m_Data->input.UpdateMousePosition( m_Data->window );
     }
 
     void PauseState::Draw()

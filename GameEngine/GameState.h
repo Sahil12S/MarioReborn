@@ -1,8 +1,8 @@
 #include "State.h"
 #include "Game.h"
-#include "Entity.h"
+#include "Player.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     class GameState : public State
     {
@@ -20,7 +20,7 @@ namespace MarioEngine
 
         std::map<std::string, int> m_KeyBinds;
 
-        Entity* m_Player;
+        Player* m_Player;
 
         sf::Sprite m_BackgroundSprite;
     };

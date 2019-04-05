@@ -4,7 +4,7 @@
 #include <memory>
 #include "State.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     /*
      * Pointer reference to our game state

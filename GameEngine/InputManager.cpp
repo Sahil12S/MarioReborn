@@ -2,7 +2,7 @@
 #include "DEFINITIONS.h"
 #include <fstream>
 
-namespace MarioEngine
+namespace SSEngine
 {
     InputManager::InputManager()
     {
@@ -67,5 +67,27 @@ namespace MarioEngine
     std::map<std::string, int>& InputManager::getSupportedKeys()
     {
         return m_SupportedKeys;
+    }
+
+    void InputManager::UpdateMousePosition(sf::RenderWindow &window)
+    {
+        m_MousePosScreen = sf::Mouse::getPosition();
+        m_MousePosWindow = sf::Mouse::getPosition( window );
+        m_MousePosView = window.mapPixelToCoords( sf::Mouse::getPosition( window ) );
+    }
+
+    sf::Vector2i InputManager::GetScreenMousePosition()
+    {
+        return m_MousePosScreen;
+    }
+
+    sf::Vector2i InputManager::GetWindowMousePosition()
+    {
+        return m_MousePosWindow;
+    }
+
+    sf::Vector2f InputManager::GetViewMousePosition()
+    {
+        return m_MousePosView;
     }
 }

@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-namespace MarioEngine
+namespace SSEngine
 {
     class AssetManager
     {

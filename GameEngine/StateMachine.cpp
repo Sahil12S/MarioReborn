@@ -1,7 +1,7 @@
 #include "StateMachine.h"
 #include "DEFINITIONS.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     StateMachine::StateMachine()
     {
@@ -17,7 +17,7 @@ namespace MarioEngine
         Debug( "All states destroyed" )
     }
 
-    void StateMachine::AddState(MarioEngine::StateRef newState, bool isReplacing)
+    void StateMachine::AddState(SSEngine::StateRef newState, bool isReplacing)
     {
         m_IsAdding = true;
         m_IsReplacing = isReplacing;

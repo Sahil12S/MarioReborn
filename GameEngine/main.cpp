@@ -4,6 +4,6 @@
 
 int main()
 {
-    MarioEngine::Game game( SCREEN_WIDTH, SCREEN_HEIGHT, "Mario Bros" );
+    SSEngine::Game game( SCREEN_WIDTH, SCREEN_HEIGHT, "Mario Bros" );
     return EXIT_SUCCESS;
 }

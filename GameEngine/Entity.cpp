@@ -1,21 +1,21 @@
+/*
 #include "Entity.h"
 #include "DEFINITIONS.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     Entity::Entity( GameDataRef data ) : m_Data( std::move( data ) )
     {
-        Debug( "Entity Initialized" )
-        m_Shape.setSize( sf::Vector2f( 50.0f, 50.0f ) );
-        m_Shape.setFillColor( sf::Color::White );
+        Debug( "**Initialized** Entity Class" )
+
         m_MovementSpeed = ENTITY_MOVEMENT_SPEED;
 
-        upPressed = downPressed = leftPressed = rightPressed = false;
+        // upPressed = downPressed = leftPressed = rightPressed = false;
     }
 
     void Entity::Move(const float& dt, const float dir_x, const float dir_y)
     {
-        m_Shape.move( dir_x * m_MovementSpeed * dt, dir_y * m_MovementSpeed * dt );
+        m_Sprite.move( dir_x * m_MovementSpeed * dt, dir_y * m_MovementSpeed * dt );
     }
 
     void Entity::Update(float dt)
@@ -40,7 +40,7 @@ namespace MarioEngine
 
     void Entity::Draw()
     {
-        m_Data->window.draw( m_Shape );
+        m_Data->window.draw( m_Sprite );
     }
 
     void Entity::MoveUp()
@@ -83,3 +83,4 @@ namespace MarioEngine
         rightPressed = false;
     }
 }
+*/

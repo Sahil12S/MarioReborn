@@ -3,7 +3,7 @@
 #include "MainMenuState.h"
 #include "DEFINITIONS.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     SplashState::SplashState( GameDataRef data ) : m_Data( std::move( data ) )
     {}
@@ -32,11 +32,10 @@ namespace MarioEngine
 
     void SplashState::Update(float dt)
     {
+        m_Data->input.UpdateMousePosition( m_Data->window );
         if ( m_Clock.getElapsedTime().asSeconds() > SPLASH_STATE_SHOW_TIME )
         {
-            // m_Data->machine.AddState( StateRef ( new MainMenuState ( m_Data ) ), true );
             m_Data->machine.AddState( StateRef ( new MainMenuState ( m_Data ) ), true );
-
         }
 
     }

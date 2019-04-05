@@ -7,7 +7,7 @@
 #include "InputManager.h"
 #include "StateMachine.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     struct GameData
     {

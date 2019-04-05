@@ -1,14 +1,14 @@
 cmake_minimum_required(VERSION 3.13)
-project(MarioBros)
+project(cmpe219)
 
 set(CMAKE_CXX_STANDARD 14)
 
 set(CMAKE_CXX_COMPILER  /usr/bin/g++)
 set(CMAKE_C_COMPILER /usr/bin/gcc)
 
-set(SOURCE_FILES main.cpp State.h StateMachine.cpp StateMachine.h InputManager.cpp InputManager.h AssetManager.cpp AssetManager.h Game.cpp Game.h SplashState.cpp SplashState.h DEFINITIONS.h MainMenuState.cpp MainMenuState.h PauseState.cpp PauseState.h GameState.cpp GameState.h GameSettingsState.cpp GameSettingsState.h Player.cpp Player.h Entity.cpp Entity.h)
+set(SOURCE_FILES main.cpp State.h StateMachine.cpp StateMachine.h InputManager.cpp InputManager.h AssetManager.cpp AssetManager.h Game.cpp Game.h SplashState.cpp SplashState.h DEFINITIONS.h MainMenuState.cpp MainMenuState.h PauseState.cpp PauseState.h GameState.cpp GameState.h GameSettingsState.cpp GameSettingsState.h Player.cpp Player.h Entity.cpp Entity.h HUD.cpp HUD.h Button.cpp Button.h)
 
-add_executable(MarioBros ${SOURCE_FILES})
+add_executable(cmpe219 ${SOURCE_FILES})
 
 set(EXECUTABLE_NAME ${PROJECT_NAME})
 

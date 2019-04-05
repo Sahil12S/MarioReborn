@@ -1,7 +1,7 @@
 #include "State.h"
 #include "Game.h"
 
-namespace MarioEngine
+namespace SSEngine
 {
     class PauseState : public  State
     {

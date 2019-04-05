@@ -11,7 +11,7 @@
 
 #pragma once
 
-namespace MarioEngine
+namespace SSEngine
 {
     class State
     {
@@ -45,10 +45,5 @@ namespace MarioEngine
          * Resume game
          */
         virtual void Resume() {};
-
-        /*
-         * Key Binds
-         */
-        // virtual void InitKeyBinds() = 0;
     };
 }
