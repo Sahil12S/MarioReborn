@@ -15,8 +15,6 @@ namespace SSEngine
 
         void Init();
 
-        void InitKeyBinds();
-
         void HandleInput();
 
         void Update( float dt );
@@ -24,6 +22,7 @@ namespace SSEngine
         void Draw();
 
     private:
+        /* Variables */
         GameDataRef m_Data;
 
         HUD* m_Hud;
@@ -33,5 +32,15 @@ namespace SSEngine
         std::map<std::string, Button*> m_Buttons;
 
         sf::RectangleShape m_Background;
+
+        /* Functions */
+        // Initializers
+        void InitKeyBinds();
+        void InitTextures();
+        void InitFonts();
+        void InitSounds();
+        void InitButtons();
+
+        void InitVariables();
     };
 }

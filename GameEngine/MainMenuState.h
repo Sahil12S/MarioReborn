@@ -16,8 +16,6 @@ namespace SSEngine
         // @override
         void Init();
 
-        void InitKeyBinds();
-
         // @override
         void HandleInput();
 
@@ -28,6 +26,7 @@ namespace SSEngine
         void Draw();
 
     private:
+        /* Variables */
         GameDataRef m_Data;
 
         std::map<std::string, int> m_KeyBinds;
@@ -37,6 +36,16 @@ namespace SSEngine
         HUD* m_Hud;
 
         std::map<std::string, Button*> m_Buttons;
+
+        /* Functions */
+        // Initializers
+        void InitKeyBinds();
+        void InitTextures();
+        void InitFonts();
+        void InitSounds();
+        void InitButtons();
+
+        void InitVariables();
 
     };
 }

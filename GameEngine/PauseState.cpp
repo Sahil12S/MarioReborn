@@ -18,19 +18,26 @@ namespace SSEngine
         }
     }
 
-    void PauseState::Init()
+    void PauseState::InitTextures()
     {
-        Debug( "**Initialized** Pause State" )
-
-        InitKeyBinds();
-
         // Set Background
         m_Background.setSize( sf::Vector2f( m_Data->window.getSize() ) );
         m_Background.setFillColor( sf::Color(97, 143, 216) );
+    }
 
-        m_Hud = new HUD( m_Data );
-        m_Hud->SetTitle( "Main Menu Font", "PAUSED" );
+    void PauseState::InitFonts()
+    {
+        m_Data->assets.LoadFont( "Main Menu Font", MAIN_MENU_FONT_FILEPATH );
+        m_Data->assets.LoadFont( "Button Font", BUTTON_FONT_FILEPATH );
+    }
 
+    void PauseState::InitSounds()
+    {
+
+    }
+
+    void PauseState::InitButtons()
+    {
         m_Buttons["Home"] = new Button( m_Data );
         m_Buttons["Quit"] = new Button( m_Data );
         m_Buttons["Back"] = new Button( m_Data );
@@ -42,7 +49,12 @@ namespace SSEngine
         m_Buttons["Quit"]->SetButtonPosition( 2.f * SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
                                               SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
         m_Buttons["Quit"]->SetButtonProperties( "Button Font", "Quit" );
+    }
 
+    void PauseState::InitVariables()
+    {
+        m_Hud = new HUD( m_Data );
+        m_Hud->SetTitle( "Main Menu Font", "PAUSED" );
     }
 
     void PauseState::InitKeyBinds()
@@ -61,6 +73,18 @@ namespace SSEngine
         }
 
         Debug( "Key binds initialized for Paused State" )
+    }
+
+    void PauseState::Init()
+    {
+        Debug( "**Initialized** Pause State" )
+
+        InitTextures();
+        InitFonts();
+        InitSounds();
+        InitButtons();
+        InitVariables();
+        InitKeyBinds();
     }
 
     void PauseState::HandleInput()

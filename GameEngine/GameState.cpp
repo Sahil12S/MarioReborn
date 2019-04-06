@@ -11,13 +11,13 @@ namespace SSEngine
     {
     }
 
-    void GameState::Init()
+    GameState::~GameState()
     {
-        // Initialize keys
-        InitKeyBinds();
+        delete m_Player;
+    }
 
-        Debug( "**Initialized** Game State" )
-
+    void GameState::InitTextures()
+    {
         // Load game background
         m_Data->assets.LoadTexture( "Game Background", GAME_BACKGROUND_FILEPATH );
         m_BackgroundSprite.setTexture( m_Data->assets.GetTexture( "Game Background" ) );
@@ -32,7 +32,25 @@ namespace SSEngine
         m_Data->assets.LoadTexture( "Mario Walk 03", MARIO_WALK_03_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Jump", MARIO_JUMP_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Turn", MARIO_TURN_FILEPATH );
+    }
 
+    void GameState::InitFonts()
+    {
+        m_Data->assets.LoadFont( "Debug Font", DEBUG_FONT_FILEPATH );
+    }
+
+    void GameState::InitSounds()
+    {
+        // Nothing for now
+    }
+
+    void GameState::InitButtons()
+    {
+        // Nothing for now
+    }
+
+    void GameState::InitVariables()
+    {
         // Initialize player & spawn it
         // TODO: Make collision with ground
         m_Player = new Player( m_Data );
@@ -58,6 +76,18 @@ namespace SSEngine
         ifs.close();
 
         Debug( "Key bindings initialized for Game State" )
+    }
+
+    void GameState::Init()
+    {
+        Debug( "**Initialized** Game State" )
+
+        InitTextures();
+        InitFonts();
+        InitSounds();
+        InitButtons();
+        InitVariables();
+        InitKeyBinds();
     }
 
     void GameState::HandleInput()

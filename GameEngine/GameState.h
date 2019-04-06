@@ -8,14 +8,17 @@ namespace SSEngine
     {
     public:
         GameState( GameDataRef data );
+        ~GameState();
 
         void Init();
-        void InitKeyBinds();
+
         void HandleInput();
         void Update( float dt );
         void Draw();
 
+
     private:
+        /* Variables */
         GameDataRef m_Data;
 
         std::map<std::string, int> m_KeyBinds;
@@ -23,5 +26,15 @@ namespace SSEngine
         Player* m_Player;
 
         sf::Sprite m_BackgroundSprite;
+
+        /* Functions */
+        // Initializers
+        void InitKeyBinds();
+        void InitTextures();
+        void InitFonts();
+        void InitSounds();
+        void InitButtons();
+
+        void InitVariables();
     };
 }

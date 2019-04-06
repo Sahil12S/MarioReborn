@@ -20,8 +20,6 @@
 #define BUTTON_WIDTH 200
 #define BUTTON_HEIGHT 90
 
-#define SPLASH_SCENE_BACKGROUND_FILEPATH "../Resources/img/SplashBackground.png"
-#define MAIN_MENU_BACKGROUND_FILEPATH "../Resources/img/mainBackground.png"
 #define GAME_BACKGROUND_FILEPATH "../Resources/img/background.png"
 
 #define MAIN_MENU_FONT_FILEPATH "../Resources/font/OrangeJuice.ttf"

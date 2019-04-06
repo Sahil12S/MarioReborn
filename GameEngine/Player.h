@@ -5,6 +5,17 @@
 #include "Game.h"
 #include "DEFINITIONS.h"
 
+/*
+    Properties of player
+    - Walk
+    - Run ( Accelerate )
+    - Jump
+    - Duck ( only when grown )
+    - Die
+    - Grow ( Power up )
+    - Shoot ( Power )
+*/
+
 namespace SSEngine
 {
     class Player : public Entity
@@ -12,14 +23,8 @@ namespace SSEngine
     private:
         GameDataRef m_Data;
 
-
-
-        // sf::RectangleShape m_Sprite;
         float m_MovementSpeed;
         float m_RunningFactor;
-
-        // bool m_ShouldFlip;
-        // bool m_IsIdle;
 
         bool m_IsJumping;
         bool m_IsFalling;
@@ -38,13 +43,11 @@ namespace SSEngine
         // In which direction is mario facing or walking
         short m_Direction;
 
-
-        sf::Sprite m_MarioSprite;
-        // sf::Texture m_JumpTexture;
-        // sf::Sprite m_ActionsSprite;
+        // Player Sprite
+        sf::Sprite m_PlayerSprite;
 
         // Animation controllers
-        std::map<std::string, sf::Texture> m_MarioFrames;
+        std::map<std::string, sf::Texture> m_PlayerFrames;
         std::vector<sf::Texture> m_WalkAnimationFrames;
         unsigned int m_WalkAnimationIterator;
 
@@ -54,15 +57,24 @@ namespace SSEngine
         // Clock to handle movements
         sf::Clock m_MovementClock;
 
+
+        /* Functions */
+        void InitTextures();
+        void InitSounds();
+        void InitVariables();
+
     public:
+        // Constructor / Destructor
         Player( GameDataRef data );
         ~Player();
 
         // void HandleInput();
 
-        void Move( const float& dt, const float& dir_x, const float& dir_y );
+        // Spawn player
+        void Spawn( sf::Vector2f startPos ) override;
 
-        void Spawn( sf::Vector2f startPos );
+        // Move player
+        void Move( const float& dt, const float& dir_x, const float& dir_y ) override;
 
         void Animate( float dt );
 
@@ -79,7 +91,7 @@ namespace SSEngine
         // void StopFalling();
         void StopRunning();
 
-        void Update( float dt );
-        void Draw();
+        void Update( float dt ) override;
+        void Draw() override;
     };
 }

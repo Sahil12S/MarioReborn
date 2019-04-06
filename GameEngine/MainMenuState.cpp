@@ -19,26 +19,27 @@ namespace SSEngine
         }
     }
 
-    // @override
-    void MainMenuState::Init()
+    void MainMenuState::InitTextures()
     {
-        Debug( "**Initialized** Main menu state" )
-
-        InitKeyBinds();
-        Debug( "Key binding completed for Main Menu" )
-
         // Use sprites for background
         m_Background.setSize( sf::Vector2f( m_Data->window.getSize() ) );
         m_Background.setFillColor( sf::Color(97, 143, 216) );
+    }
 
-        // Buttons
+    void MainMenuState::InitFonts()
+    {
         m_Data->assets.LoadFont( "Main Menu Font", MAIN_MENU_FONT_FILEPATH );
         m_Data->assets.LoadFont( "Button Font", BUTTON_FONT_FILEPATH );
-        m_Data->assets.LoadFont( "Debug Font", DEBUG_FONT_FILEPATH );
+        // m_Data->assets.LoadFont( "Debug Font", DEBUG_FONT_FILEPATH );
+    }
 
-        m_Hud = new HUD( m_Data );
-        m_Hud->SetTitle( "Main Menu Font", "WHO'S WATCHING??" );
+    void MainMenuState::InitSounds()
+    {
 
+    }
+
+    void MainMenuState::InitButtons()
+    {
         //Draw Buttons
         m_Buttons["Play"] = new Button( m_Data );
         m_Buttons["Exit"] = new Button( m_Data );
@@ -53,6 +54,25 @@ namespace SSEngine
 
         m_Buttons["Play"]->SetButtonPosition( SCREEN_WIDTH / 2.0f - BUTTON_WIDTH / 2.0f, m_Buttons["Settings"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f );
         m_Buttons["Play"]->SetButtonProperties( "Button Font", "Play" );
+    }
+
+    void MainMenuState::InitVariables()
+    {
+        m_Hud = new HUD( m_Data );
+        m_Hud->SetTitle( "Main Menu Font", "WHO'S WATCHING??" );
+    }
+
+    // @override
+    void MainMenuState::Init()
+    {
+        Debug( "**Initialized** Main menu state" )
+
+        InitTextures();
+        InitFonts();
+        InitSounds();
+        InitButtons();
+        InitVariables();
+        InitKeyBinds();
     }
 
     void MainMenuState::InitKeyBinds()

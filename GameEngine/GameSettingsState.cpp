@@ -16,40 +16,7 @@ namespace SSEngine
         }
     }
 
-    void GameSettingsState::Init()
-    {
-        Debug( "Game Settings State" )
-
-        InitKeyBinds();
-
-        // Set Background
-        m_Background.setSize( sf::Vector2f( m_Data->window.getSize() ) );
-        m_Background.setFillColor( sf::Color(97, 143, 216) );
-
-        // m_Data->assets.LoadFont( "Button Font", BUTTON_FONT_FILEPATH );
-
-        // Initialize HUD
-        m_Hud = new HUD( m_Data );
-        m_Hud->SetTitle( "Main Menu Font", "SETTINGS" );
-
-        // Set Buttons
-        m_Buttons["Home"] = new Button( m_Data );
-        m_Buttons["Exit"] = new Button( m_Data );
-        m_Buttons["Back"] = new Button( m_Data );
-
-        m_Buttons["Back"]->SetButtonPosition( 25.f, 25.f );
-        m_Buttons["Back"]->SetButtonProperties( "Button Font", "Back" );
-
-        m_Buttons["Exit"]->SetButtonPosition( 2.f * SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
-                SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
-        m_Buttons["Exit"]->SetButtonProperties( "Button Font", "Exit" );
-
-        m_Buttons["Home"]->SetButtonPosition( SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
-                SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
-        m_Buttons["Home"]->SetButtonProperties( "Button Font", "Home" );
-
-    }
-
+    // Initializers
     void GameSettingsState::InitKeyBinds()
     {
         std::fstream ifs ( SETTINGS_STATE_KEY_BIND_FILEPATH );
@@ -66,6 +33,65 @@ namespace SSEngine
         }
 
         Debug( "Key binds initialized for Settings State" )
+    }
+
+    void GameSettingsState::InitTextures()
+    {
+        // Set Background
+        m_Background.setSize( sf::Vector2f( m_Data->window.getSize() ) );
+        m_Background.setFillColor( sf::Color(97, 143, 216) );
+    }
+
+    void GameSettingsState::InitFonts()
+    {
+        m_Data->assets.LoadFont( "Button Font", BUTTON_FONT_FILEPATH );
+    }
+
+    void GameSettingsState::InitSounds()
+    {
+        // Empty for now
+    }
+
+    void GameSettingsState::InitButtons()
+    {
+        // Set Buttons
+        m_Buttons["Home"] = new Button( m_Data );
+        m_Buttons["Exit"] = new Button( m_Data );
+        m_Buttons["Back"] = new Button( m_Data );
+
+        m_Buttons["Back"]->SetButtonPosition( 25.f, 25.f );
+        m_Buttons["Back"]->SetButtonProperties( "Button Font", "Back" );
+
+        m_Buttons["Exit"]->SetButtonPosition( 2.f * SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
+                                              SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
+        m_Buttons["Exit"]->SetButtonProperties( "Button Font", "Exit" );
+
+        m_Buttons["Home"]->SetButtonPosition( SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
+                                              SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
+        m_Buttons["Home"]->SetButtonProperties( "Button Font", "Home" );
+    }
+
+    void GameSettingsState::InitVariables()
+    {
+        // Initialize HUD
+        m_Hud = new HUD( m_Data );
+        m_Hud->SetTitle( "Main Menu Font", "SETTINGS" );
+    }
+
+    void GameSettingsState::Init()
+    {
+        Debug( "Game Settings State" )
+
+        InitKeyBinds();
+
+        // Assets
+        InitTextures();
+        InitSounds();
+        InitFonts();
+
+        InitVariables();
+
+        InitButtons();
     }
 
     void GameSettingsState::HandleInput()

@@ -11,14 +11,15 @@ namespace SSEngine
         GameSettingsState( GameDataRef data );
         ~GameSettingsState();
 
+        // Initializes the state
         void Init();
-        // TODO: Initialize key binds in game
-        void InitKeyBinds();
+
         void HandleInput();
         void Update( float dt );
         void Draw();
 
     private:
+        /* Variables */
         GameDataRef m_Data;
 
         HUD* m_Hud;
@@ -28,5 +29,15 @@ namespace SSEngine
         sf::RectangleShape m_Background;
 
         std::map<std::string, Button*> m_Buttons;
+
+        /* Functions */
+        // Initializers
+        void InitKeyBinds();
+        void InitTextures();
+        void InitFonts();
+        void InitSounds();
+        void InitButtons();
+
+        void InitVariables();
     };
 }

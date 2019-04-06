@@ -24,9 +24,9 @@ namespace SSEngine
         m_WalkAnimationFrames.emplace_back( m_Data->assets.GetTexture( "Mario Walk 03" ) );
 
 
-        m_MarioFrames["Idle"] = m_Data->assets.GetTexture( "Mario Idle" );
-        m_MarioFrames["Jump"] = m_Data->assets.GetTexture( "Mario Jump" );
-        m_MarioFrames["Turn"] = m_Data->assets.GetTexture( "Mario Turn" );
+        m_PlayerFrames["Idle"] = m_Data->assets.GetTexture( "Mario Idle" );
+        m_PlayerFrames["Jump"] = m_Data->assets.GetTexture( "Mario Jump" );
+        m_PlayerFrames["Turn"] = m_Data->assets.GetTexture( "Mario Turn" );
 
         // m_JumpTexture = m_Data->assets.GetTexture( "Mario Jump" );
     }
@@ -36,17 +36,32 @@ namespace SSEngine
 
     }
 
+    void Player::InitTextures()
+    {
+
+    }
+
+    void Player::InitSounds()
+    {
+
+    }
+
+    void Player::InitVariables()
+    {
+
+    }
+
     void Player::Spawn(sf::Vector2f startPos)
     {
-        m_MarioSprite.setTexture( m_WalkAnimationFrames.at( 0 ) );
-        m_MarioSprite.setPosition( startPos );
-        m_MarioSprite.scale( 2.0f, 2.0f );
+        m_PlayerSprite.setTexture( m_WalkAnimationFrames.at( 0 ) );
+        m_PlayerSprite.setPosition( startPos );
+        m_PlayerSprite.scale( 2.0f, 2.0f );
 
-        sf::Vector2f origin = sf::Vector2f( m_MarioSprite.getGlobalBounds().width / 2,
-                                            m_MarioSprite.getGlobalBounds().height / 2 );
+        sf::Vector2f origin = sf::Vector2f( m_PlayerSprite.getGlobalBounds().width / 2,
+                                            m_PlayerSprite.getGlobalBounds().height / 2 );
 
-        m_MarioSprite.setOrigin( origin );
-        // Debug( m_MarioSprite.getPosition().x )
+        m_PlayerSprite.setOrigin( origin );
+        // Debug( m_PlayerSprite.getPosition().x )
     }
 
     void Player::Animate( float dt )
@@ -58,7 +73,7 @@ namespace SSEngine
             m_WalkAnimationIterator++;
             m_WalkAnimationIterator %= m_WalkAnimationFrames.size() - 1;
 
-            m_MarioSprite.setTexture( m_WalkAnimationFrames.at( m_WalkAnimationIterator + 1 ) );
+            m_PlayerSprite.setTexture( m_WalkAnimationFrames.at( m_WalkAnimationIterator + 1 ) );
 
             m_Clock.restart();
         }
@@ -66,7 +81,7 @@ namespace SSEngine
 
     void Player::Move(const float &dt, const float& dir_x, const float& dir_y)
     {
-        m_MarioSprite.move( dir_x * m_MovementSpeed * dt, dir_y * m_MovementSpeed * dt );
+        m_PlayerSprite.move( dir_x * m_MovementSpeed * dt, dir_y * m_MovementSpeed * dt );
     }
 
     void Player::Jump()
@@ -142,8 +157,8 @@ namespace SSEngine
             if (m_Direction != MarioMovement::eLeft )
             {
                 m_Direction = MarioMovement::eLeft;
-                m_MarioSprite.setOrigin( 20.0f, 16.0f );
-                m_MarioSprite.scale( -1.0f, 1.0f );
+                m_PlayerSprite.setOrigin( 20.0f, 16.0f );
+                m_PlayerSprite.scale( -1.0f, 1.0f );
             }
 
             // m_IsIdle = false;
@@ -158,10 +173,10 @@ namespace SSEngine
             if (m_Direction != MarioMovement::eRight )
             {
                 m_Direction = MarioMovement::eRight;
-                // sf::Vector2f t = m_MarioSprite.getPosition();
+                // sf::Vector2f t = m_PlayerSprite.getPosition();
                 // Debug( t.x )
-                m_MarioSprite.setOrigin( 0.0f, 16.0f );
-                m_MarioSprite.scale( -1.0f, 1.0f );
+                m_PlayerSprite.setOrigin( 0.0f, 16.0f );
+                m_PlayerSprite.scale( -1.0f, 1.0f );
 
             }
             // m_IsIdle = false;
@@ -173,14 +188,14 @@ namespace SSEngine
         else
         {
             // Standing idle
-            m_MarioSprite.setTexture( m_MarioFrames["Idle"] );
+            m_PlayerSprite.setTexture( m_PlayerFrames["Idle"] );
         }
 
 
         // Complete the jump if you are moving in some direction
         if ( m_IsJumping )
         {
-            m_MarioSprite.setTexture( m_MarioFrames["Jump"] );
+            m_PlayerSprite.setTexture( m_PlayerFrames["Jump"] );
 
             if ( m_IsMovingRight || m_IsJumpingRight )
             {
@@ -224,7 +239,7 @@ namespace SSEngine
             m_IsFalling = true;
         }
 
-        if ( m_MarioSprite.getPosition().y > SCREEN_HEIGHT - 100 )
+        if ( m_PlayerSprite.getPosition().y > SCREEN_HEIGHT - 100 )
         {
             m_IsFalling = false;
             m_IsJumpingLeft = false;
@@ -235,6 +250,6 @@ namespace SSEngine
 
     void Player::Draw()
     {
-        m_Data->window.draw( m_MarioSprite );
+        m_Data->window.draw( m_PlayerSprite );
     }
 }
