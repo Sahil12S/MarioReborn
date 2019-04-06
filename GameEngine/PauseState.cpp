@@ -9,14 +9,58 @@ namespace SSEngine
 
     }
 
+    PauseState::~PauseState()
+    {
+        delete m_Hud;
+        for ( const auto& button : m_Buttons )
+        {
+            delete button.second;
+        }
+    }
+
     void PauseState::Init()
     {
-        Debug( "Pause State" );
+        Debug( "**Initialized** Pause State" )
+
+        InitKeyBinds();
+
+        // Set Background
+        m_Background.setSize( sf::Vector2f( m_Data->window.getSize() ) );
+        m_Background.setFillColor( sf::Color(97, 143, 216) );
+
+        m_Hud = new HUD( m_Data );
+        m_Hud->SetTitle( "Main Menu Font", "PAUSED" );
+
+        m_Buttons["Home"] = new Button( m_Data );
+        m_Buttons["Quit"] = new Button( m_Data );
+        m_Buttons["Back"] = new Button( m_Data );
+
+        m_Buttons["Back"]->SetButtonPosition( SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
+                                              SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
+        m_Buttons["Back"]->SetButtonProperties( "Button Font", "Back" );
+
+        m_Buttons["Quit"]->SetButtonPosition( 2.f * SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
+                                              SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
+        m_Buttons["Quit"]->SetButtonProperties( "Button Font", "Quit" );
+
     }
 
     void PauseState::InitKeyBinds()
     {
-        m_KeyBinds["Quit"] = m_Data->input.getSupportedKeys().at( " Escape" );
+        std::fstream ifs ( PAUSE_STATE_KEY_BIND_FILEPATH );
+
+        if ( ifs.is_open() )
+        {
+            std::string keyAction;
+            std::string key;
+
+            while( ifs >> keyAction >> key )
+            {
+                m_KeyBinds[keyAction] = m_Data->input.getSupportedKeys().at( key );
+            }
+        }
+
+        Debug( "Key binds initialized for Paused State" )
     }
 
     void PauseState::HandleInput()
@@ -27,36 +71,47 @@ namespace SSEngine
         {
             if ( sf::Event::Closed == event.type )
             {
-                // delete m_Data;
+                m_Data->machine.ClearStates();
+                m_Data->machine.RemoveState();
                 m_Data->window.close();
             }
 
-            if ( sf::Event::KeyPressed == event.type )
+            if ( m_Buttons["Back"]->isPressed() ||
+                sf::Keyboard::isKeyPressed( sf::Keyboard::Key( m_KeyBinds["RESUME"] ) ) )
             {
-                // TODO: Implement Going back to Game or to Main Menu
-                if ( sf::Keyboard::isKeyPressed( sf::Keyboard::R ) )
-                {
-                    // std::cout << "Key Pressed in Pause state" << std::endl;
-                    m_Data->machine.RemoveState();
-                }
-                if ( sf:: Keyboard::isKeyPressed( sf::Keyboard::M ) )
-                {
-                    m_Data->machine.RemoveState();
-                    m_Data->machine.AddState( StateRef( new MainMenuState( m_Data ) ), true );
-                }
+                m_Data->machine.RemoveState();
             }
+
+            if ( m_Buttons["Quit"]->isPressed() )
+            {
+                m_Data->machine.ClearStates();
+                m_Data->machine.AddState( StateRef( new MainMenuState( m_Data ) ), true );
+            }
+
         }
     }
 
     void PauseState::Update(float dt)
     {
         m_Data->input.UpdateMousePosition( m_Data->window );
+
+        // Update mouse position for buttons
+        for ( auto button : m_Buttons )
+        {
+            button.second->Update(m_Data->input.GetViewMousePosition());
+        }
     }
 
     void PauseState::Draw()
     {
         m_Data->window.clear();
-        m_Data->window.draw( m_BackgroundSprite );
+        m_Data->window.draw( m_Background );
+        m_Hud->Draw( true );
+
+        for ( auto button : m_Buttons )
+        {
+            button.second->Draw();
+        }
         m_Data->window.display();
     }
 }

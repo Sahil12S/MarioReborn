@@ -12,7 +12,7 @@ namespace SSEngine
         m_IsJumpingLeft = m_IsJumpingRight = false;
 
         // Set default facing direction
-        m_Direction = MarioDirection::eRight;
+        m_Direction = MarioMovement::eRight;
 
         // m_ShouldFlip = false;
         // m_IsIdle = false;
@@ -46,7 +46,7 @@ namespace SSEngine
                                             m_MarioSprite.getGlobalBounds().height / 2 );
 
         m_MarioSprite.setOrigin( origin );
-        Debug( m_MarioSprite.getPosition().x )
+        // Debug( m_MarioSprite.getPosition().x )
     }
 
     void Player::Animate( float dt )
@@ -139,9 +139,9 @@ namespace SSEngine
         if ( m_IsMovingLeft )
         {
             // Walking in left direction
-            if (m_Direction != MarioDirection::eLeft )
+            if (m_Direction != MarioMovement::eLeft )
             {
-                m_Direction = MarioDirection::eLeft;
+                m_Direction = MarioMovement::eLeft;
                 m_MarioSprite.setOrigin( 20.0f, 16.0f );
                 m_MarioSprite.scale( -1.0f, 1.0f );
             }
@@ -155,9 +155,9 @@ namespace SSEngine
         else if ( m_IsMovingRight )
         {
             // Walking towards right
-            if (m_Direction != MarioDirection::eRight )
+            if (m_Direction != MarioMovement::eRight )
             {
-                m_Direction = MarioDirection::eRight;
+                m_Direction = MarioMovement::eRight;
                 // sf::Vector2f t = m_MarioSprite.getPosition();
                 // Debug( t.x )
                 m_MarioSprite.setOrigin( 0.0f, 16.0f );

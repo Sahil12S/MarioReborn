@@ -7,21 +7,9 @@ namespace SSEngine
         m_ButtonState = eIdle;
     }
 
-    Button::~Button()
-    {
+    Button::~Button() = default;
 
-    }
-
-    const bool Button::isPressed() const
-    {
-        if ( m_ButtonState == eActive )
-        {
-            return true;
-        }
-        return false;
-    }
-
-    void Button::SetButtonPosition( int x, int y )
+    void Button::SetButtonPosition( float x, float y )
     {
         m_Shape.setSize( sf::Vector2f( BUTTON_WIDTH, BUTTON_HEIGHT ) );
         m_Shape.setPosition( sf::Vector2f( x, y ) );
@@ -38,11 +26,6 @@ namespace SSEngine
         m_Text.setCharacterSize( 50 );
 
         // Set in the middle of button
-        // m_Text.setPosition(
-        //         m_Shape.getPosition().x ,
-        //         m_Shape.getPosition().y  );
-
-
         m_Text.setPosition(
                 m_Shape.getPosition().x +
                 m_Shape.getGlobalBounds().width / 2.0f -
@@ -56,6 +39,20 @@ namespace SSEngine
         m_ActiveColor = sf::Color::Green;
 
         m_Shape.setFillColor( m_IdleColor );
+    }
+
+    sf::RectangleShape &Button::GetButton()
+    {
+        return m_Shape;
+    }
+
+    const bool Button::isPressed() const
+    {
+        if ( m_ButtonState == eActive )
+        {
+            return true;
+        }
+        return false;
     }
 
     void Button::Update(const sf::Vector2f& mousePosition)
@@ -99,11 +96,6 @@ namespace SSEngine
     {
         m_Data->window.draw( m_Shape );
         m_Data->window.draw( m_Text );
-    }
-
-    sf::RectangleShape &Button::GetButton()
-    {
-        return m_Shape;
     }
 
 }

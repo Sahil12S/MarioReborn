@@ -31,12 +31,6 @@ namespace SSEngine
         Button( GameDataRef data );
         ~Button();
 
-        void SetButtonPosition( int x, int y );
-        void SetButtonProperties( const std::string& fontName, const std::string& text,
-                                  const std::vector< sf::Color >& buttonColors = {} );
-
-        sf::RectangleShape& GetButton();
-
         /*
          * Set properties of button you want to draw
          * Position x, y
@@ -44,9 +38,11 @@ namespace SSEngine
          * Text, font type
          * Vector of colors ( or we can set them same for all buttons )
         */
-        // void setButton( float x, float y, float width, float height,
-        //         const std::string& fontName, const std::string& text,
-        //         std::vector< sf::Color > buttonColors = {} );
+        void SetButtonPosition( float x, float y );
+        void SetButtonProperties( const std::string& fontName, const std::string& text,
+                                  const std::vector< sf::Color >& buttonColors = {} );
+
+        sf::RectangleShape& GetButton();
 
         const bool isPressed() const;
 

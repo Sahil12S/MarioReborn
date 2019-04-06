@@ -6,6 +6,7 @@
 #include "AssetManager.h"
 #include "InputManager.h"
 #include "StateMachine.h"
+#include "Entity.h"
 
 namespace SSEngine
 {
@@ -15,6 +16,7 @@ namespace SSEngine
         AssetManager assets;
         InputManager input;
         sf::RenderWindow window;
+        // Entity entity;
     };
 
     typedef std::shared_ptr<GameData> GameDataRef;

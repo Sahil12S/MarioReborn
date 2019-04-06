@@ -11,4 +11,13 @@ An attempt to create game similar to our very favorite Super Mario Bros. using C
 - Get movements working.  
 - Move our Main View with Mario.  
 
-### (On hold while new concepts are practiced)
+## What things are working
+- States  
+	- Splash State  
+	- Main Menu State  
+	- Game State  
+	- Game Settings State  
+	- Paused State  
+	- Game over state ( To Do )  
+- Key Bindings
+- Player animation and movement

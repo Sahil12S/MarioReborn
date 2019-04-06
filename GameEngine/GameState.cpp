@@ -16,8 +16,16 @@ namespace SSEngine
         // Initialize keys
         InitKeyBinds();
 
-        // std::clog << "[DEBUG]: ";
         Debug( "**Initialized** Game State" )
+
+        // Load game background
+        m_Data->assets.LoadTexture( "Game Background", GAME_BACKGROUND_FILEPATH );
+        m_BackgroundSprite.setTexture( m_Data->assets.GetTexture( "Game Background" ) );
+
+        // Set Background position
+        m_BackgroundSprite.setPosition( 0, -( m_BackgroundSprite.getGlobalBounds().height - SCREEN_HEIGHT ) );
+
+        // Load textures for Mario
         m_Data->assets.LoadTexture( "Mario Idle", MARIO_IDLE_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Walk 01", MARIO_WALK_01_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Walk 02", MARIO_WALK_02_FILEPATH );
@@ -25,14 +33,15 @@ namespace SSEngine
         m_Data->assets.LoadTexture( "Mario Jump", MARIO_JUMP_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Turn", MARIO_TURN_FILEPATH );
 
+        // Initialize player & spawn it
         // TODO: Make collision with ground
         m_Player = new Player( m_Data );
         m_Player->Spawn( sf::Vector2f( 100, SCREEN_HEIGHT - 100 ) );
     }
 
-    // TODO: Implementation left for later.
     void GameState::InitKeyBinds()
     {
+        // Read Key Bindings from file
         std::ifstream ifs ( GAMESTATE_KEY_BIND_FILEPATH );
 
         if ( ifs.is_open() )
@@ -57,11 +66,14 @@ namespace SSEngine
 
         while ( m_Data->window.pollEvent( event ) )
         {
+            // Check for window close
             if ( sf::Event::Closed == event.type )
             {
+                m_Data->machine.ClearStates();
                 m_Data->machine.RemoveState();
                 m_Data->window.close();
             }
+
             if ( sf::Event::KeyPressed == event.type )
             {
                 // Go to Pause Screen if game is paused
@@ -133,6 +145,7 @@ namespace SSEngine
     void GameState::Draw()
     {
         m_Data->window.clear();
+        m_Data->window.draw( m_BackgroundSprite );
 
         m_Player->Draw();
 

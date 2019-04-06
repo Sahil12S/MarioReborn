@@ -11,7 +11,7 @@ namespace SSEngine
         InputManager();
         ~InputManager();
 
-        bool IsSpriteClicked( sf::Sprite object, sf::Mouse::Button button, sf::RenderWindow& window );
+        bool IsSpriteClicked( const sf::Sprite& object, sf::Mouse::Button button, sf::RenderWindow& window );
 
         void InitKeys();
 

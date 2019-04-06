@@ -10,10 +10,10 @@ namespace SSEngine
         InitKeys();
     }
 
-    InputManager::~InputManager()
-    {}
+    InputManager::~InputManager() = default;
 
-    bool InputManager::IsSpriteClicked(sf::Sprite object, sf::Mouse::Button button, sf::RenderWindow &window)
+
+    bool InputManager::IsSpriteClicked(const sf::Sprite& object, sf::Mouse::Button button, sf::RenderWindow &window)
     {
         if ( sf::Mouse::isButtonPressed( button ) )
         {
@@ -31,13 +31,11 @@ namespace SSEngine
 
     void InputManager::InitKeys()
     {
-        // std::clog << "Init" << std::endl;
-        // Reading Key Bindings from file.
         std::ifstream ifs ( GENERAL_KEY_BIND_FILEPATH );
 
         if ( ifs.is_open() )
         {
-            std::string key = "";
+            std::string key;
             int keyValue = 0;
 
             while ( ifs >> key >> keyValue )
@@ -48,20 +46,7 @@ namespace SSEngine
 
         ifs.close();
 
-        Debug( "Default Key binds read" )
-
-        /*for ( auto key : m_SupportedKeys )
-        {
-            std::cout << key.first << " - " << key.second << std::endl;
-        }*/
-
-        /*
-        m_SupportedKeys["Escape"] = sf::Keyboard::Key ::Escape;
-        m_SupportedKeys["W"] = sf::Keyboard::Key::W;
-        m_SupportedKeys["A"] = sf::Keyboard::Key::A;
-        m_SupportedKeys["S"] = sf::Keyboard::Key::S;
-        m_SupportedKeys["D"] = sf::Keyboard::Key::D;
-        */
+        Debug( "Default Key binds initialized" )
     }
 
     std::map<std::string, int>& InputManager::getSupportedKeys()

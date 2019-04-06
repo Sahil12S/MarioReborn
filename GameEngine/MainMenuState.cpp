@@ -31,26 +31,7 @@ namespace SSEngine
         m_Background.setSize( sf::Vector2f( m_Data->window.getSize() ) );
         m_Background.setFillColor( sf::Color(97, 143, 216) );
 
-        // TODO: Load all textures in splash state
         // Buttons
-       /* m_Data->assets.LoadTexture( "Play Button", PLAY_BUTTON_FILEPATH );
-        m_Data->assets.LoadTexture( "Exit Button", EXIT_BUTTON_FILEPATH );
-        m_Data->assets.LoadTexture( "Settings Button", SETTINGS_BUTTON_FILEPATH );
-
-        m_PlayButton.setTexture( m_Data->assets.GetTexture( "Play Button" ) );
-        m_ExitButton.setTexture( m_Data->assets.GetTexture( "Exit Button" ) );
-        m_SettingsButton.setTexture( m_Data->assets.GetTexture( "Settings Button" ) );
-
-
-        m_PlayButton.setPosition( ( SCREEN_WIDTH / 1.5f ) - (m_PlayButton.getGlobalBounds().width / 2.0f ),
-                                  ( SCREEN_HEIGHT - m_PlayButton.getGlobalBounds().height -
-                                  m_SettingsButton.getGlobalBounds().height - m_ExitButton.getGlobalBounds().height ) );
-
-        m_ExitButton.setPosition( ( SCREEN_WIDTH ) - (m_ExitButton.getGlobalBounds().width),
-                                  ( SCREEN_HEIGHT - m_ExitButton.getGlobalBounds().height - m_SettingsButton.getGlobalBounds().height) );
-        m_SettingsButton.setPosition( ( SCREEN_WIDTH / 1.5f) - (m_SettingsButton.getGlobalBounds().width / 2.0f ),
-                                  ( SCREEN_HEIGHT - m_SettingsButton.getGlobalBounds().height ) );*/
-
         m_Data->assets.LoadFont( "Main Menu Font", MAIN_MENU_FONT_FILEPATH );
         m_Data->assets.LoadFont( "Button Font", BUTTON_FONT_FILEPATH );
         m_Data->assets.LoadFont( "Debug Font", DEBUG_FONT_FILEPATH );
@@ -88,6 +69,7 @@ namespace SSEngine
                 m_KeyBinds[keyAction] = m_Data->input.getSupportedKeys().at( key );
             }
         }
+        Debug( "Key bindings initialized for main menu" )
     }
 
     // @override
@@ -97,14 +79,10 @@ namespace SSEngine
 
         while ( m_Data->window.pollEvent( event ) )
         {
-            if ( sf::Event::Closed == event.type )
+            // Check for game close
+            if ( sf::Event::Closed == event.type || m_Buttons["Exit"]->isPressed() )
             {
-                m_Data->machine.RemoveState();
-                m_Data->window.close();
-            }
-
-            if ( m_Buttons["Exit"]->isPressed() )
-            {
+                m_Data->machine.ClearStates();
                 m_Data->machine.RemoveState();
                 m_Data->window.close();
             }
@@ -118,12 +96,6 @@ namespace SSEngine
                 m_Data->machine.AddState( StateRef ( new GameSettingsState( m_Data ) ), true );
             }
 
-            /*if ( m_Data->input.IsSpriteClicked( m_ExitButton, sf::Mouse::Left, m_Data->window ) )
-            {
-                m_Data->machine.RemoveState();
-                m_Data->window.close();
-            }*/
-
             /*if ( m_Data->input.IsSpriteClicked( m_PlayButton, sf::Mouse::Left, m_Data->window ) )
             {
                 m_Data->machine.AddState( StateRef ( new GameState( m_Data ) ), true );
@@ -132,13 +104,6 @@ namespace SSEngine
             {
                 m_Data->machine.AddState( StateRef ( new GameSettingsState( m_Data ) ), true );
             }*/
-
-            /*if ( sf::Keyboard::isKeyPressed(( sf::Keyboard::Key( m_KeyBinds["QUIT"] ) ) ) )
-            {
-                m_Data->machine.RemoveState();
-                m_Data->window.close();
-            }*/
-
         }
     }
 

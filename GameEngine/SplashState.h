@@ -18,14 +18,14 @@ namespace SSEngine
         void Update( float dt );
         void Draw();
 
-        // TODO: Initialize keys in game
-        void InitKeyBinds();
+        // No need for any key bindings here
+        // void InitKeyBinds();
 
     private:
         GameDataRef m_Data;
         sf::Clock m_Clock;
         sf::Sprite m_BackgroundSprite;
 
-        std::map<std::string, int> m_KeyBinds;
+        // std::map<std::string, int> m_KeyBinds;
     };
 }

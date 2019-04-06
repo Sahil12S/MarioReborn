@@ -46,9 +46,4 @@ namespace SSEngine
         m_Data->window.draw( m_BackgroundSprite );
         m_Data->window.display();
     }
-
-    void SplashState::InitKeyBinds()
-    {
-        m_KeyBinds["QUIT"] = m_Data->input.getSupportedKeys().at("Escape");
-    }
 }

@@ -3,10 +3,7 @@
 
 namespace SSEngine
 {
-    StateMachine::StateMachine()
-    {
-
-    }
+    StateMachine::StateMachine() = default;
 
     StateMachine::~StateMachine()
     {
@@ -69,8 +66,23 @@ namespace SSEngine
         return m_States.top();
     }
 
-    // void StateMachine::DeleteMachine()
-    // {
-    //     ~
-    // }
+    const int StateMachine::GetStatesCount()
+    {
+        return m_States.size();
+    }
+
+    void StateMachine::ClearStates()
+    {
+        // Store top state
+        StateRef state = std::move ( m_States.top() );
+
+        // Clear the stack
+        while ( !m_States.empty() )
+        {
+            m_States.pop();
+        }
+
+        // Put top state back
+        m_States.push( std::move( state ) );
+    }
 }

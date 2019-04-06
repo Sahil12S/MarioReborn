@@ -8,6 +8,12 @@
 #define Debug(x)
 #endif
 
+#ifndef ERROR
+#define Error(err, name) std::cout << "\033[31m[ERROR] \033[0m" << err << " " << name << std::endl;
+#else
+#define Error(err)
+#endif
+
 #define SCREEN_WIDTH 1366
 #define SCREEN_HEIGHT 768
 
@@ -16,14 +22,11 @@
 
 #define SPLASH_SCENE_BACKGROUND_FILEPATH "../Resources/img/SplashBackground.png"
 #define MAIN_MENU_BACKGROUND_FILEPATH "../Resources/img/mainBackground.png"
+#define GAME_BACKGROUND_FILEPATH "../Resources/img/background.png"
+
 #define MAIN_MENU_FONT_FILEPATH "../Resources/font/OrangeJuice.ttf"
 #define BUTTON_FONT_FILEPATH "../Resources/font/NationalCartoon.ttf"
 #define DEBUG_FONT_FILEPATH "../Resources/font/Alexandria.ttf"
-
-/*#define PLAY_BUTTON_FILEPATH "../Resources/img/PlayButton.png"
-#define EXIT_BUTTON_FILEPATH "../Resources/img/ExitButton.png"
-#define SETTINGS_BUTTON_FILEPATH "../Resources/img/SettingsButton.png"
-#define HOME_BUTTON_FILEPATH "../Resources/img/HomeButton.png"*/
 
 #define MARIO_IDLE_FILEPATH "../Resources/img/Mario_Idle.png"
 #define MARIO_WALK_01_FILEPATH "../Resources/img/Mario_Walk_01.png"
@@ -43,9 +46,11 @@
 #define ENTITY_MOVEMENT_SPEED 110.0f
 
 // Key binds
-#define GENERAL_KEY_BIND_FILEPATH "../Resources/KeyBinds.ini"
-#define GAMESTATE_KEY_BIND_FILEPATH "../Resources/GameStateKeyBinds.ini"
-#define MAIN_MENU_KEY_BIND_FILEPATH "../Resources/MainMenuKeyBinds.ini"
+#define GENERAL_KEY_BIND_FILEPATH "../Resources/KeyBindings/KeyBinds.ini"
+#define GAMESTATE_KEY_BIND_FILEPATH "../Resources/KeyBindings/GameStateKeyBinds.ini"
+#define MAIN_MENU_KEY_BIND_FILEPATH "../Resources/KeyBindings/MainMenuKeyBinds.ini"
+#define SETTINGS_STATE_KEY_BIND_FILEPATH "../Resources/KeyBindings/SettingsStateKeyBinds.ini"
+#define PAUSE_STATE_KEY_BIND_FILEPATH "../Resources/KeyBindings/PauseStateKeyBinds.ini"
 
 enum ButtonState
 {
@@ -54,10 +59,18 @@ enum ButtonState
     eActive
 };
 
-enum MarioDirection
+enum MarioMovement
 {
-    eLeft = -1,
-    eRight = 1
+    eLeft,
+    eRight,
+    eJump,
+    eRun
+};
+
+enum EntityStates
+{
+    eAlive,
+    eDead
 };
 
 // Enums for mario's states

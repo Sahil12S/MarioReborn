@@ -1,59 +1,71 @@
-#include <iostream>
 #include "AssetManager.h"
+#include "DEFINITIONS.h"
+#include <SFML/System.hpp>
 
 namespace SSEngine
 {
-    AssetManager::AssetManager()
-    {}
+    AssetManager::AssetManager() = default;
 
-    AssetManager::~AssetManager()
-    {}
+    AssetManager::~AssetManager() = default;
 
-    void AssetManager::LoadTexture(std::string name, std::string fileName)
+    void AssetManager::LoadTexture(const std::string& name, const std::string& fileName)
     {
         sf::Texture tex;
 
-        // TODO: Add try-catch block
         if ( tex.loadFromFile( fileName ) )
         {
-
             m_Textures[name] = tex;
+        }
+        else
+        {
+            Error( "Error reading texture file", fileName )
+            exit( -1 );
         }
     }
 
-    sf::Texture& AssetManager::GetTexture(std::string name)
+    sf::Texture& AssetManager::GetTexture(const std::string& name)
     {
-        // TODO: Handle key not found exception
         try
         {
             return m_Textures.at( name );
         }
         catch ( std::exception& e)
         {
-            std::cerr << e.what() << std::endl;
-            exit(-1);
+            Error( "No entry found for texture with name ", name )
+            exit( -1 );
         }
-
-        // return m_Textures.at( name );
     }
 
-    void AssetManager::LoadFont(std::string name, std::string fileName)
+    void AssetManager::LoadFont(const std::string& name, const std::string& fileName)
     {
         sf::Font font;
 
-        // TODO: Add try-catch
         if ( font.loadFromFile( fileName ) )
         {
             m_Fonts[name] = font;
         }
+        else
+        {
+            Error( "Error reading font file", fileName )
+            exit( -1 );
+        }
     }
 
-    sf::Font& AssetManager::GetFont(std::string name)
+    sf::Font& AssetManager::GetFont(const std::string& name)
     {
-        return m_Fonts.at( name );
+        try
+        {
+            return m_Fonts.at( name );
+        }
+
+        catch ( std::exception& e)
+        {
+            Error( "No entry found for font with name ", name )
+            exit( -1 );
+        }
     }
 
-    void AssetManager::LoadAudio(std::string name, std::string fileName)
+    void AssetManager::LoadAudio(const std::string& name, const std::string& fileName)
     {
         sf::SoundBuffer sb;
 
@@ -61,10 +73,23 @@ namespace SSEngine
         {
             m_Audios[name] = sb;
         }
+        else
+        {
+            Error( "Error reading audio file", fileName )
+            exit( -1 );
+        }
     }
 
-    sf::SoundBuffer& AssetManager::GetAudio(std::string name)
+    sf::SoundBuffer& AssetManager::GetAudio(const std::string& name)
     {
-        return m_Audios.at( name );
+        try
+        {
+            return m_Audios.at(name);
+        }
+        catch ( std::exception& e)
+        {
+            Error( "No entry found for audio with name ", name )
+            exit( -1 );
+        }
     }
 }

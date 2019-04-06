@@ -8,19 +8,20 @@ namespace SSEngine
     {
         Debug( "**Initialized** Entity Class" )
 
-        m_MovementSpeed = ENTITY_MOVEMENT_SPEED;
+        // m_MovementSpeed = ENTITY_MOVEMENT_SPEED;
 
         // upPressed = downPressed = leftPressed = rightPressed = false;
     }
 
-    void Entity::Move(const float& dt, const float dir_x, const float dir_y)
+    void Entity::Move(const float& dt, const float& dir_x, const float& dir_y)
     {
-        m_Sprite.move( dir_x * m_MovementSpeed * dt, dir_y * m_MovementSpeed * dt );
+        // m_Sprite.move( dir_x * m_MovementSpeed * dt, dir_y * m_MovementSpeed * dt );
     }
 
     void Entity::Update(float dt)
     {
-        if ( leftPressed )
+        */
+/*if ( leftPressed )
         {
             Move( dt, -1.0f, 0.0f );
         }
@@ -35,14 +36,21 @@ namespace SSEngine
         if ( downPressed )
         {
             Move( dt, 0.0f, 1.0f );
-        }
+        }*//*
+
     }
 
     void Entity::Draw()
     {
-        m_Data->window.draw( m_Sprite );
+        // m_Data->window.draw( m_Sprite );
     }
 
+    void Entity::Spawn(sf::Vector2f startPos)
+    {
+
+    }
+*/
+/*
     void Entity::MoveUp()
     {
         upPressed = true;

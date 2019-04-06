@@ -16,7 +16,6 @@ namespace SSEngine
         // @override
         void Init();
 
-        // TODO: Initialize keys in game
         void InitKeyBinds();
 
         // @override
@@ -35,21 +34,9 @@ namespace SSEngine
 
         sf::RectangleShape m_Background;
 
-        /*sf::Sprite m_PlayButton;
-        sf::Sprite m_ExitButton;
-        sf::Sprite m_SettingsButton;*/
-
         HUD* m_Hud;
 
         std::map<std::string, Button*> m_Buttons;
 
-        // Button* m_PlayButton;
-        // Button* m_ExitButton;
-        // Button* m_SettingsButton;
-
-
-        /*sf::Sprite m_BackgroundSprite;
-        sf::Sprite m_TitleSprite;
-        sf::Font m_MenuFont;*/
     };
 }

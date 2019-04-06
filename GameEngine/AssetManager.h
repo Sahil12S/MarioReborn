@@ -12,14 +12,14 @@ namespace SSEngine
         AssetManager();
         ~AssetManager();
 
-        void LoadTexture( std::string name, std::string fileName );
-        sf::Texture& GetTexture( std::string name );
+        void LoadTexture( const std::string& name, const std::string& fileName );
+        sf::Texture& GetTexture( const std::string& name );
 
-        void LoadFont( std::string name, std::string fileName );
-        sf::Font& GetFont( std::string name );
+        void LoadFont( const std::string& name, const std::string& fileName );
+        sf::Font& GetFont( const std::string& name );
 
-        void LoadAudio( std::string name, std::string fileName );
-        sf::SoundBuffer& GetAudio( std::string name );
+        void LoadAudio( const std::string& name, const std::string& fileName );
+        sf::SoundBuffer& GetAudio( const std::string& name );
 
 
     private:

@@ -27,11 +27,6 @@ namespace SSEngine
 
         sf::RectangleShape m_Background;
 
-        /*sf::Sprite m_ExitButton;
-        sf::Sprite m_HomeButton;*/
-
         std::map<std::string, Button*> m_Buttons;
-
-        // sf::Sprite m_BackgroundSprite;
     };
 }
