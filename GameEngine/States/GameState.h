@@ -1,6 +1,6 @@
 #include "State.h"
-#include "Game.h"
-#include "Player.h"
+#include "../Game.h"
+#include "../Entities/Player.h"
 
 namespace SSEngine
 {

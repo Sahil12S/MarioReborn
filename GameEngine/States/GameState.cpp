@@ -1,7 +1,7 @@
 #include "GameState.h"
 #include "PauseState.h"
 #include "MainMenuState.h"
-#include "DEFINITIONS.h"
+#include "../DEFINITIONS.h"
 
 #include <sstream>
 

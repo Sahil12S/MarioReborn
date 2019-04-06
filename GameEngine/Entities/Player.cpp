@@ -2,8 +2,33 @@
 
 namespace SSEngine
 {
+    void Player::InitTextures()
+    {
+
+    }
+
+    void Player::InitSounds()
+    {
+
+    }
+
+    void Player::InitVariables()
+    {
+
+    }
+
+    void Player::InitComponents()
+    {
+
+    }
+
     Player::Player( GameDataRef data ) : m_Data( move( data ) )
     {
+        InitTextures();
+        InitSounds();
+        InitVariables();
+        InitComponents();
+
         m_MovementSpeed = ENTITY_MOVEMENT_SPEED;
         m_RunningFactor = 1.0f;
 
@@ -32,21 +57,6 @@ namespace SSEngine
     }
 
     Player::~Player()
-    {
-
-    }
-
-    void Player::InitTextures()
-    {
-
-    }
-
-    void Player::InitSounds()
-    {
-
-    }
-
-    void Player::InitVariables()
     {
 
     }

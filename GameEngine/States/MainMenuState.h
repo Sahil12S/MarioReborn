@@ -1,9 +1,9 @@
 #pragma once
 
 #include "State.h"
-#include "Game.h"
-#include "HUD.h"
-#include "Button.h"
+#include "../Game.h"
+#include "../Game_Components/HUD.h"
+#include "../Game_Components/Button.h"
 
 namespace SSEngine
 {

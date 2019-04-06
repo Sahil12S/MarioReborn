@@ -2,8 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include "Game.h"
-#include "DEFINITIONS.h"
+#include "../Game.h"
+#include "../DEFINITIONS.h"
 
 namespace SSEngine
 {

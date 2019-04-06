@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Entity.h"
-#include "Game.h"
-#include "Game.h"
-#include "DEFINITIONS.h"
+#include "../Game.h"
+#include "../Game.h"
+#include "../DEFINITIONS.h"
 
 /*
     Properties of player
@@ -62,6 +62,7 @@ namespace SSEngine
         void InitTextures();
         void InitSounds();
         void InitVariables();
+        void InitComponents();
 
     public:
         // Constructor / Destructor

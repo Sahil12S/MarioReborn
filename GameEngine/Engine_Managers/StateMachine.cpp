@@ -1,5 +1,5 @@
 #include "StateMachine.h"
-#include "DEFINITIONS.h"
+#include "../DEFINITIONS.h"
 
 namespace SSEngine
 {

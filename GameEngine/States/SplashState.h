@@ -1,5 +1,5 @@
 #include "State.h"
-#include "Game.h"
+#include "../Game.h"
 #include "MainMenuState.h"
 
 namespace SSEngine

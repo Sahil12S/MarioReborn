@@ -1,21 +1,24 @@
-#include "Game.h"
 #include "State.h"
-#include "HUD.h"
-#include "Button.h"
+#include "../Game.h"
+#include "../Game_Components/Button.h"
+#include "../Game_Components/HUD.h"
+#include "../DEFINITIONS.h"
 
+// TODO: Remove Paused State and create on-screen pause
 namespace SSEngine
 {
-    class GameSettingsState : public State
+    class PauseState : public  State
     {
     public:
-        GameSettingsState( GameDataRef data );
-        ~GameSettingsState();
+        PauseState( GameDataRef data );
+        ~PauseState();
 
-        // Initializes the state
         void Init();
 
         void HandleInput();
+
         void Update( float dt );
+
         void Draw();
 
     private:
@@ -26,9 +29,9 @@ namespace SSEngine
 
         std::map<std::string, int> m_KeyBinds;
 
-        sf::RectangleShape m_Background;
-
         std::map<std::string, Button*> m_Buttons;
+
+        sf::RectangleShape m_Background;
 
         /* Functions */
         // Initializers

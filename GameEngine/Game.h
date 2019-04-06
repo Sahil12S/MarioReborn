@@ -3,10 +3,10 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-#include "AssetManager.h"
-#include "InputManager.h"
-#include "StateMachine.h"
-#include "Entity.h"
+#include "Engine_Managers/AssetManager.h"
+#include "Engine_Managers/InputManager.h"
+#include "Engine_Managers/StateMachine.h"
+#include "Entities/Entity.h"
 
 namespace SSEngine
 {
