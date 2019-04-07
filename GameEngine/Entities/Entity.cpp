@@ -6,11 +6,13 @@ namespace SSEngine
     Entity::Entity( )
     {
         m_MC = nullptr;
+        m_AC = nullptr;
     }
 
     Entity::~Entity()
     {
         delete m_MC;
+        delete m_AC;
     }
 
     /* Component functions */
@@ -23,6 +25,11 @@ namespace SSEngine
     void Entity::CreateMovementComponent(const float& maxVelocity, const float& acceleration, const float& deceleration )
     {
         m_MC = new MovementComponent( m_Sprite, maxVelocity, acceleration, deceleration );
+    }
+
+    void Entity::CreateAnimationComponent(sf::Texture& texture)
+    {
+        m_AC = new AnimationComponent( m_Sprite, texture );
     }
 
     /* Functions */

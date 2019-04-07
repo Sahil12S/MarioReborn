@@ -20,9 +20,7 @@
 
 #define GAME_BACKGROUND_FILEPATH "../Resources/img/background.png"
 
-#define MAIN_MENU_FONT_FILEPATH "../Resources/font/OrangeJuice.ttf"
-#define BUTTON_FONT_FILEPATH "../Resources/font/NationalCartoon.ttf"
-#define DEBUG_FONT_FILEPATH "../Resources/font/Alexandria.ttf"
+#define MARIO_SHEET_FILEPATH "../Resources/img/Mario.png"
 
 #define MARIO_IDLE_FILEPATH "../Resources/img/Mario_Idle.png"
 #define MARIO_WALK_01_FILEPATH "../Resources/img/Mario_Walk_01.png"
@@ -30,6 +28,11 @@
 #define MARIO_WALK_03_FILEPATH "../Resources/img/Mario_Walk_03.png"
 #define MARIO_JUMP_FILEPATH "../Resources/img/Mario_Jump.png"
 #define MARIO_TURN_FILEPATH "../Resources/img/Mario_Turn.png"
+
+// Fonts
+#define SCREEN_FONT_FILEPATH "../Resources/font/OrangeJuice.ttf"
+#define BUTTON_FONT_FILEPATH "../Resources/font/NationalCartoon.ttf"
+#define DEBUG_FONT_FILEPATH "../Resources/font/Alexandria.ttf"
 
 
 enum ButtonState
@@ -52,14 +55,16 @@ enum ButtonState
 
 #define BUTTON_TEXT_SIZE 50
 
-
+#define TILE_HEIGHT 16
+#define TILE_WIDTH 16
+#define POWER_UP_TILE_FACTOR 2.f
 
 #define GRAVITY 110.0f
 #define JUMP_SPEED 100.0f
 
 #define JUMP_DURATION 0.6f
 
-#define WALKING_ANIMATION_DURATION 0.2f
+#define WALK_ANIMATION_DURATION 12.f
 
 #define SPLASH_STATE_SHOW_TIME 0.5f
 #define ENTITY_MOVEMENT_SPEED 110.0f

@@ -4,6 +4,7 @@ namespace SSEngine
 {
     void Player::InitTextures()
     {
+        m_Data->assets.LoadTexture( "Mario Sheet", MARIO_SHEET_FILEPATH );
         // m_WalkAnimationFrames.emplace_back( m_Data->assets.GetTexture( "Mario Idle") );
 /*        m_WalkAnimationFrames.emplace_back( m_Data->assets.GetTexture( "Mario Walk 01" ) );
         m_WalkAnimationFrames.emplace_back( m_Data->assets.GetTexture( "Mario Walk 02" ) );
@@ -42,7 +43,7 @@ namespace SSEngine
 
     void Player::InitComponents()
     {
-        CreateMovementComponent( ENTITY_MOVEMENT_SPEED, 10, 6 );
+
     }
 
     Player::Player( GameDataRef data ) : m_Data( move( data ) )
@@ -53,6 +54,14 @@ namespace SSEngine
         InitComponents();
 
         SetTexture( m_Data->assets.GetTexture( "Mario Idle") );
+
+        CreateMovementComponent( ENTITY_MOVEMENT_SPEED, 0, 0 );
+        CreateAnimationComponent( m_Data->assets.GetTexture( "Mario Sheet" ) );
+
+        // Animation name, animation timer, start pos X, start pos Y, frames X, frames Y, tile size
+        m_AC->AddAnimation("IDLE_RIGHT", 0.f, 0, 2, 0, 0, TILE_WIDTH, TILE_HEIGHT ); // No animation when idle
+        m_AC->AddAnimation("WALK_RIGHT", WALK_ANIMATION_DURATION, 1, 2, 2, 0, TILE_WIDTH, TILE_HEIGHT );
+        m_AC->AddAnimation("JUMP", 0.f, 5, 2, 0, 0, TILE_WIDTH, TILE_HEIGHT ); // No animation when jumping
     }
 
     Player::~Player() = default;
@@ -188,13 +197,14 @@ namespace SSEngine
             }
             Move( dt, 1.0f, 0.0f);
 
+            m_AC->Play("WALK_RIGHT", dt);
             // Animate( dt );
 
         }
         else
         {
             // Standing idle
-            // m_PlayerSprite.setTexture( m_PlayerFrames["Idle"] );
+            m_AC->Play("IDLE_RIGHT", dt);
         }
 
 
@@ -215,6 +225,7 @@ namespace SSEngine
             {
                 Move( dt, 0.0f, -JUMP_SPEED * dt );
             }
+            m_AC->Play( "JUMP", dt );
         }
         // And fall vertically downward if no directional key is pressed.
         else if ( m_IsFalling )

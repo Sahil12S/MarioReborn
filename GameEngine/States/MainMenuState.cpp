@@ -28,7 +28,7 @@ namespace SSEngine
 
     void MainMenuState::InitFonts()
     {
-        m_Data->assets.LoadFont( "Main Menu Font", MAIN_MENU_FONT_FILEPATH );
+        m_Data->assets.LoadFont( "Main Menu Font", SCREEN_FONT_FILEPATH );
         m_Data->assets.LoadFont( "Button Font", BUTTON_FONT_FILEPATH );
         // m_Data->assets.LoadFont( "Debug Font", DEBUG_FONT_FILEPATH );
     }
