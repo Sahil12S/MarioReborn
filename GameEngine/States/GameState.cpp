@@ -54,7 +54,7 @@ namespace SSEngine
         // Initialize player & spawn it
         // TODO: Make collision with ground
         m_Player = new Player( m_Data );
-        m_Player->Spawn( sf::Vector2f( 100, SCREEN_HEIGHT - 100 ) );
+        m_Player->SetPosition(sf::Vector2f(100, SCREEN_HEIGHT - 100));
     }
 
     void GameState::InitKeyBinds()

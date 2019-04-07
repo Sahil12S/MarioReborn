@@ -4,7 +4,7 @@ namespace SSEngine
 {
     Button::Button(SSEngine::GameDataRef data) : m_Data( std::move ( data ) )
     {
-        m_ButtonState = eIdle;
+        m_ButtonState = eBtnIdle;
     }
 
     Button::~Button() = default;
@@ -16,14 +16,28 @@ namespace SSEngine
     }
 
     void Button::SetButtonProperties(const std::string &fontName, const std::string &text,
+                                     unsigned int characterSize,
+                                     const std::vector<sf::Color>& textColors,
                                      const std::vector<sf::Color>& buttonColors)
     {
+        m_ButtonState = eBtnIdle;
+
+        m_TextIdleColor = textColors[0];
+        m_TextHoverColor = textColors[1];
+        m_TextActiveColor = textColors[2];
+
+        m_BtnIdleColor = buttonColors[0];
+        m_BtnHoverColor = buttonColors[1];
+        m_BtnActiveColor = buttonColors[2];
+
+        m_Shape.setFillColor( m_BtnIdleColor );
+
         m_Font = m_Data->assets.GetFont( fontName );
         m_Text.setFont( m_Font );
         m_Text.setString( text );
         //( 97, 143, 216 )
-        m_Text.setFillColor( sf::Color::White );
-        m_Text.setCharacterSize( 50 );
+        m_Text.setFillColor( m_TextIdleColor );
+        m_Text.setCharacterSize( characterSize );
 
         // Set in the middle of button
         m_Text.setPosition(
@@ -34,11 +48,7 @@ namespace SSEngine
                 m_Shape.getGlobalBounds().height / 2.0f -
                 m_Text.getGlobalBounds().height / 2.0f );
 
-        m_IdleColor = sf::Color::Transparent;
-        m_HoverColor = sf::Color::Magenta;
-        m_ActiveColor = sf::Color::Green;
 
-        m_Shape.setFillColor( m_IdleColor );
     }
 
     sf::RectangleShape &Button::GetButton()
@@ -48,7 +58,7 @@ namespace SSEngine
 
     const bool Button::isPressed() const
     {
-        if ( m_ButtonState == eActive )
+        if ( m_ButtonState == eBtnActive)
         {
             return true;
         }
@@ -58,35 +68,39 @@ namespace SSEngine
     void Button::Update(const sf::Vector2f& mousePosition)
     {
         // Update button hover with mouse position
-        m_ButtonState = eIdle;
+        m_ButtonState = eBtnIdle;
 
         // Hover
         if( m_Shape.getGlobalBounds().contains( mousePosition ) )
         {
-            m_ButtonState = eHover;
+            m_ButtonState = eBtnHover;
 
             // Active
             if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) )
             {
-                m_ButtonState = eActive;
+                m_ButtonState = eBtnActive;
             }
         }
 
         // Set the button color
         switch ( m_ButtonState )
         {
-            case eIdle:
-                m_Shape.setFillColor( m_IdleColor );
+            case eBtnIdle:
+                m_Shape.setFillColor( m_BtnIdleColor );
+                m_Text.setFillColor( m_TextIdleColor );
                 break;
-            case eHover:
-                m_Shape.setFillColor( m_HoverColor );
+            case eBtnHover:
+                m_Shape.setFillColor( m_BtnHoverColor );
+                m_Text.setFillColor( m_TextHoverColor );
                 break;
-            case eActive:
-                m_Shape.setFillColor( m_ActiveColor );
+            case eBtnActive:
+                m_Shape.setFillColor( m_BtnActiveColor );
+                m_Text.setFillColor( m_TextActiveColor );
                 break;
 
             default:
                 m_Shape.setFillColor( sf::Color::Red );
+                m_Text.setFillColor( sf::Color::Blue );
                 break;
         }
 

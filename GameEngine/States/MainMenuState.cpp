@@ -47,13 +47,23 @@ namespace SSEngine
 
         // Set Button Properties
         m_Buttons["Exit"]->SetButtonPosition( SCREEN_WIDTH / 2.0f - BUTTON_WIDTH / 2.0f, SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
-        m_Buttons["Exit"]->SetButtonProperties( "Button Font", "Exit" );
-
         m_Buttons["Settings"]->SetButtonPosition( SCREEN_WIDTH / 2.0f - BUTTON_WIDTH / 2.0f, m_Buttons["Exit"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f );
-        m_Buttons["Settings"]->SetButtonProperties( "Button Font", "Settings" );
-
         m_Buttons["Play"]->SetButtonPosition( SCREEN_WIDTH / 2.0f - BUTTON_WIDTH / 2.0f, m_Buttons["Settings"]->GetButton().getPosition().y - BUTTON_HEIGHT / 0.8f );
-        m_Buttons["Play"]->SetButtonProperties( "Button Font", "Play" );
+
+        // Set Text and Button colors
+
+        std::vector<sf::Color> textColor = { sf::Color( TEXT_IDLE_FILL_COLOR ),
+                                             sf::Color( TEXT_HOVER_FILL_COLOR ),
+                                             sf::Color( TEXT_ACTIVE_FILL_COLOR ) };
+
+        std::vector<sf::Color> buttonColor = { sf::Color( BUTTON_IDLE_FILL_COLOR ),
+                                               sf::Color( BUTTON_HOVER_FILL_COLOR ),
+                                               sf::Color( BUTTON_ACTIVE_FILL_COLOR ) };
+
+
+        m_Buttons["Exit"]->SetButtonProperties( "Button Font", "Exit", BUTTON_TEXT_SIZE, textColor, buttonColor );
+        m_Buttons["Settings"]->SetButtonProperties( "Button Font", "Settings", BUTTON_TEXT_SIZE, textColor, buttonColor );
+        m_Buttons["Play"]->SetButtonProperties( "Button Font", "Play", BUTTON_TEXT_SIZE, textColor, buttonColor );
     }
 
     void MainMenuState::InitVariables()

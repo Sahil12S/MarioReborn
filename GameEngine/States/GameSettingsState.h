@@ -1,3 +1,6 @@
+#ifndef GAME_SETTINGS_STATE_H
+#define GAME_SETTINGS_STATE_H
+
 #include "../Game.h"
 #include "State.h"
 #include "../Game_Components/HUD.h"
@@ -41,3 +44,5 @@ namespace SSEngine
         void InitVariables();
     };
 }
+
+#endif // GAME_SETTINGS_STATE_H

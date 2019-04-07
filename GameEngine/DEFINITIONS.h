@@ -17,8 +17,6 @@
 #define SCREEN_WIDTH 1366
 #define SCREEN_HEIGHT 768
 
-#define BUTTON_WIDTH 200
-#define BUTTON_HEIGHT 90
 
 #define GAME_BACKGROUND_FILEPATH "../Resources/img/background.png"
 
@@ -32,6 +30,29 @@
 #define MARIO_WALK_03_FILEPATH "../Resources/img/Mario_Walk_03.png"
 #define MARIO_JUMP_FILEPATH "../Resources/img/Mario_Jump.png"
 #define MARIO_TURN_FILEPATH "../Resources/img/Mario_Turn.png"
+
+
+enum ButtonState
+{
+    eBtnIdle = 0,
+    eBtnHover,
+    eBtnActive
+};
+
+#define BUTTON_WIDTH 200
+#define BUTTON_HEIGHT 90
+
+#define TEXT_IDLE_FILL_COLOR 70, 70, 70, 200
+#define TEXT_HOVER_FILL_COLOR 250, 250, 250, 250
+#define TEXT_ACTIVE_FILL_COLOR 20, 20, 20, 50
+
+#define BUTTON_IDLE_FILL_COLOR 70, 70, 70, 0
+#define BUTTON_HOVER_FILL_COLOR 150, 150, 150, 0
+#define BUTTON_ACTIVE_FILL_COLOR 20, 20, 20, 0
+
+#define BUTTON_TEXT_SIZE 50
+
+
 
 #define GRAVITY 110.0f
 #define JUMP_SPEED 100.0f
@@ -50,12 +71,6 @@
 #define SETTINGS_STATE_KEY_BIND_FILEPATH "../Resources/KeyBindings/SettingsStateKeyBinds.ini"
 #define PAUSE_STATE_KEY_BIND_FILEPATH "../Resources/KeyBindings/PauseStateKeyBinds.ini"
 
-enum ButtonState
-{
-    eIdle = 0,
-    eHover,
-    eActive
-};
 
 enum MarioMovement
 {

@@ -44,11 +44,20 @@ namespace SSEngine
 
         m_Buttons["Back"]->SetButtonPosition( SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
                                               SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
-        m_Buttons["Back"]->SetButtonProperties( "Button Font", "Back" );
-
         m_Buttons["Quit"]->SetButtonPosition( 2.f * SCREEN_WIDTH / 3.f - BUTTON_WIDTH / 2.f,
                                               SCREEN_HEIGHT - BUTTON_HEIGHT / 0.8f );
-        m_Buttons["Quit"]->SetButtonProperties( "Button Font", "Quit" );
+
+
+        std::vector<sf::Color> textColor = { sf::Color( TEXT_IDLE_FILL_COLOR ),
+                                             sf::Color( TEXT_HOVER_FILL_COLOR ),
+                                             sf::Color( TEXT_ACTIVE_FILL_COLOR ) };
+
+        std::vector<sf::Color> buttonColor = { sf::Color( BUTTON_IDLE_FILL_COLOR ),
+                                               sf::Color( BUTTON_HOVER_FILL_COLOR ),
+                                               sf::Color( BUTTON_ACTIVE_FILL_COLOR ) };
+
+        m_Buttons["Back"]->SetButtonProperties( "Button Font", "Back", BUTTON_TEXT_SIZE, textColor, buttonColor );
+        m_Buttons["Quit"]->SetButtonProperties( "Button Font", "Quit", BUTTON_TEXT_SIZE, textColor, buttonColor );
     }
 
     void PauseState::InitVariables()

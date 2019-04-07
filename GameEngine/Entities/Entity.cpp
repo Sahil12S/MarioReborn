@@ -1,94 +1,51 @@
-/*
 #include "Entity.h"
-#include "DEFINITIONS.h"
 
 namespace SSEngine
 {
-    Entity::Entity( GameDataRef data ) : m_Data( std::move( data ) )
+    /* Constructors & Destructors */
+    Entity::Entity( )
     {
-        Debug( "**Initialized** Entity Class" )
-
-        // m_MovementSpeed = ENTITY_MOVEMENT_SPEED;
-
-        // upPressed = downPressed = leftPressed = rightPressed = false;
+        m_MC = nullptr;
     }
 
-    void Entity::Move(const float& dt, const float& dir_x, const float& dir_y)
+    Entity::~Entity()
     {
-        // m_Sprite.move( dir_x * m_MovementSpeed * dt, dir_y * m_MovementSpeed * dt );
+        delete m_MC;
+    }
+
+    /* Component functions */
+    void Entity::SetTexture( sf::Texture& tex )
+    {
+        m_Sprite.setTexture( tex );
+        m_Sprite.scale( 2.0f, 2.0f );
+    }
+
+    void Entity::CreateMovementComponent(const float& maxVelocity, const float& acceleration, const float& deceleration )
+    {
+        m_MC = new MovementComponent( m_Sprite, maxVelocity, acceleration, deceleration );
+    }
+
+    /* Functions */
+    void Entity::SetPosition(sf::Vector2f position )
+    {
+        m_Sprite.setPosition( position );
+    }
+
+    void Entity::Move(const float &dt, const float &dir_x, const float &dir_y)
+    {
+        if ( m_MC )
+        {
+            m_MC->Move( dt, dir_x, dir_y);
+        }
+        // m_Sprite.move( m_MC->GetVelocity() * dt );
     }
 
     void Entity::Update(float dt)
     {
-        */
-/*if ( leftPressed )
-        {
-            Move( dt, -1.0f, 0.0f );
-        }
-        if ( rightPressed )
-        {
-            Move( dt, 1.0f, 0.0f );
-        }
-        if ( upPressed )
-        {
-            Move( dt, 0.0f, -1.0f );
-        }
-        if ( downPressed )
-        {
-            Move( dt, 0.0f, 1.0f );
-        }*//*
 
     }
 
     void Entity::Draw()
     {
-        // m_Data->window.draw( m_Sprite );
-    }
-
-    void Entity::Spawn(sf::Vector2f startPos)
-    {
-
-    }
-*/
-/*
-    void Entity::MoveUp()
-    {
-        upPressed = true;
-    }
-
-    void Entity::MoveLeft()
-    {
-        leftPressed = true;
-    }
-
-    void Entity::MoveDown()
-    {
-        downPressed = true;
-    }
-
-    void Entity::MoveRight()
-    {
-        rightPressed = true;
-    }
-
-    void Entity::StopUp()
-    {
-        upPressed = false;
-    }
-
-    void Entity::StopLeft()
-    {
-        leftPressed = false;
-    }
-
-    void Entity::StopDown()
-    {
-        downPressed = false;
-    }
-
-    void Entity::StopRight()
-    {
-        rightPressed = false;
     }
 }
-*/

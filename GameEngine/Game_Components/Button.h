@@ -1,4 +1,5 @@
-#pragma once
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include <SFML/Graphics.hpp>
 
@@ -21,9 +22,13 @@ namespace SSEngine
         // Text for button
         sf::Text m_Text;
 
-        sf::Color m_IdleColor;
-        sf::Color m_HoverColor;
-        sf::Color m_ActiveColor;
+        sf::Color m_TextIdleColor;
+        sf::Color m_TextHoverColor;
+        sf::Color m_TextActiveColor;
+
+        sf::Color m_BtnIdleColor;
+        sf::Color m_BtnHoverColor;
+        sf::Color m_BtnActiveColor;
 
         unsigned short m_ButtonState;
 
@@ -40,7 +45,9 @@ namespace SSEngine
         */
         void SetButtonPosition( float x, float y );
         void SetButtonProperties( const std::string& fontName, const std::string& text,
-                                  const std::vector< sf::Color >& buttonColors = {} );
+                                  unsigned int characterSize,
+                                  const std::vector<sf::Color>& textColors,
+                                  const std::vector< sf::Color >& buttonColors );
 
         sf::RectangleShape& GetButton();
 
@@ -54,3 +61,5 @@ namespace SSEngine
 
     };
 }
+
+#endif // BUTTON_H

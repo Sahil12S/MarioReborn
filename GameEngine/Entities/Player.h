@@ -1,9 +1,11 @@
-#pragma once
+#ifndef PLAYER_H
+#define PLAYER_H
 
 #include "Entity.h"
 #include "../Game.h"
 #include "../Game.h"
 #include "../DEFINITIONS.h"
+#include "../Game_Components/MovementComponent.h"
 
 /*
     Properties of player
@@ -23,7 +25,8 @@ namespace SSEngine
     private:
         GameDataRef m_Data;
 
-        float m_MovementSpeed;
+
+        /* Variables */
         float m_RunningFactor;
 
         bool m_IsJumping;
@@ -32,8 +35,7 @@ namespace SSEngine
         bool m_IsMovingRight;
         bool m_IsDucking;
         bool m_IsRunning;
-        bool m_IsJumpingLeft;
-        bool m_IsJumpingRight;
+
 
         bool m_JustJumped = false;
 
@@ -43,8 +45,6 @@ namespace SSEngine
         // In which direction is mario facing or walking
         short m_Direction;
 
-        // Player Sprite
-        sf::Sprite m_PlayerSprite;
 
         // Animation controllers
         std::map<std::string, sf::Texture> m_PlayerFrames;
@@ -58,7 +58,7 @@ namespace SSEngine
         sf::Clock m_MovementClock;
 
 
-        /* Functions */
+        /* Initializers */
         void InitTextures();
         void InitSounds();
         void InitVariables();
@@ -66,19 +66,16 @@ namespace SSEngine
 
     public:
         // Constructor / Destructor
-        Player( GameDataRef data );
-        ~Player();
+        explicit Player( GameDataRef data );
+        ~Player() override;
 
-        // void HandleInput();
+        /* Overridden functions */
+        // void SetPosition( sf::Vector2f startPos ) override;
+        // void CreateMovementComponent( const float& maxVelocity ) override;
+        /*void Animate( float dt );*/
 
-        // Spawn player
-        void Spawn( sf::Vector2f startPos ) override;
 
-        // Move player
-        void Move( const float& dt, const float& dir_x, const float& dir_y ) override;
-
-        void Animate( float dt );
-
+        /* Functions */
         void Jump();
         // void Duck();
         void MoveLeft();
@@ -96,3 +93,5 @@ namespace SSEngine
         void Draw() override;
     };
 }
+
+#endif // PLAYER_H

@@ -10,11 +10,11 @@ namespace SSEngine
         GameState( GameDataRef data );
         ~GameState();
 
-        void Init();
+        void Init() override;
 
-        void HandleInput();
-        void Update( float dt );
-        void Draw();
+        void HandleInput() override;
+        void Update( float dt ) override;
+        void Draw() override;
 
 
     private:
