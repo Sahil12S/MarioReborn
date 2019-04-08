@@ -96,7 +96,7 @@ namespace SSEngine
         InitKeyBinds();
     }
 
-    void PauseState::HandleInput()
+    void PauseState::HandleInput( float dt )
     {
         sf::Event event;
 

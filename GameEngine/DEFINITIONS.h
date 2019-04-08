@@ -22,12 +22,12 @@
 
 #define MARIO_SHEET_FILEPATH "../Resources/img/Mario.png"
 
-#define MARIO_IDLE_FILEPATH "../Resources/img/Mario_Idle.png"
+/*#define MARIO_IDLE_FILEPATH "../Resources/img/Mario_Idle.png"
 #define MARIO_WALK_01_FILEPATH "../Resources/img/Mario_Walk_01.png"
 #define MARIO_WALK_02_FILEPATH "../Resources/img/Mario_Walk_02.png"
 #define MARIO_WALK_03_FILEPATH "../Resources/img/Mario_Walk_03.png"
 #define MARIO_JUMP_FILEPATH "../Resources/img/Mario_Jump.png"
-#define MARIO_TURN_FILEPATH "../Resources/img/Mario_Turn.png"
+#define MARIO_TURN_FILEPATH "../Resources/img/Mario_Turn.png"*/
 
 // Fonts
 #define SCREEN_FONT_FILEPATH "../Resources/font/OrangeJuice.ttf"
@@ -59,15 +59,15 @@ enum ButtonState
 #define TILE_WIDTH 16
 #define POWER_UP_TILE_FACTOR 2.f
 
-#define GRAVITY 110.0f
-#define JUMP_SPEED 100.0f
+#define GRAVITY 250.0f
+#define JUMP_SPEED 250.0f
 
-#define JUMP_DURATION 0.6f
+#define PLAYER_MOVEMENT_SPEED 110.0f
+#define RUNNING_FACTOR 2.f
 
+#define JUMP_DURATION 0.4f
 #define WALK_ANIMATION_DURATION 12.f
-
 #define SPLASH_STATE_SHOW_TIME 0.5f
-#define ENTITY_MOVEMENT_SPEED 110.0f
 
 // Key binds
 #define GENERAL_KEY_BIND_FILEPATH "../Resources/KeyBindings/KeyBinds.ini"
@@ -77,12 +77,16 @@ enum ButtonState
 #define PAUSE_STATE_KEY_BIND_FILEPATH "../Resources/KeyBindings/PauseStateKeyBinds.ini"
 
 
-enum MarioMovement
+enum MovementStates
 {
-    eLeft,
-    eRight,
-    eJump,
-    eRun
+    eIdle = 0,
+    eMoving,
+    eMovingLeft,
+    eMovingRight,
+    eJumping,
+    eFalling,
+    eRunningLeft,
+    eRunningRight
 };
 
 enum EntityStates

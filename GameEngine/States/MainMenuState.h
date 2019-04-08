@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MAIN_MENU_STATE_H
+#define MAIN_MENU_STATE_H
 
 #include "State.h"
 #include "../Game.h"
@@ -13,17 +14,10 @@ namespace SSEngine
         explicit MainMenuState( GameDataRef data );
         ~MainMenuState();
 
-        // @override
-        void Init();
-
-        // @override
-        void HandleInput();
-
-        // @override
-        void Update( float dt );
-
-        // @override
-        void Draw();
+        void Init() override;
+        void HandleInput(float dt) override;
+        void Update( float dt ) override;
+        void Draw() override;
 
     private:
         /* Variables */
@@ -49,3 +43,4 @@ namespace SSEngine
 
     };
 }
+#endif // MAIN_MENU_STATE_H

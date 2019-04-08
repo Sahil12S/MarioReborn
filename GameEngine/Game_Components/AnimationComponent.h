@@ -145,7 +145,7 @@ namespace SSEngine
                 int frames_x, int frame_y, int width, int height );
 
         const bool& Play(const std::string &key, const float &dt, const bool &priority = false);
-        const bool& play(const std::string& key, const float& dt, const float& modifier, const float& modifier_max, const bool priority = false);
+        const bool& Play(const std::string& key, const float& dt, const float& modifier, const float& modifier_max, const bool priority = false);
 
     };
 }

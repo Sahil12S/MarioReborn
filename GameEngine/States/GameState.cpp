@@ -26,12 +26,12 @@ namespace SSEngine
         m_BackgroundSprite.setPosition( 0, -( m_BackgroundSprite.getGlobalBounds().height - SCREEN_HEIGHT ) );
 
         // Load textures for Mario
-        m_Data->assets.LoadTexture( "Mario Idle", MARIO_IDLE_FILEPATH );
+/*        m_Data->assets.LoadTexture( "Mario Idle", MARIO_IDLE_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Walk 01", MARIO_WALK_01_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Walk 02", MARIO_WALK_02_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Walk 03", MARIO_WALK_03_FILEPATH );
         m_Data->assets.LoadTexture( "Mario Jump", MARIO_JUMP_FILEPATH );
-        m_Data->assets.LoadTexture( "Mario Turn", MARIO_TURN_FILEPATH );
+        m_Data->assets.LoadTexture( "Mario Turn", MARIO_TURN_FILEPATH );*/
     }
 
     void GameState::InitFonts()
@@ -90,7 +90,7 @@ namespace SSEngine
         InitKeyBinds();
     }
 
-    void GameState::HandleInput()
+    void GameState::HandleInput( float dt )
     {
         sf::Event event;
 

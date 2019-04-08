@@ -9,7 +9,8 @@
  *  6. Settings state   - When we go to settings (either from menu or from pause screen)
  */
 
-#pragma once
+#ifndef STATE_H
+#define STATE_H
 
 namespace SSEngine
 {
@@ -24,7 +25,7 @@ namespace SSEngine
         /*
          * Handle input in current state
          */
-        virtual void HandleInput() = 0;
+        virtual void HandleInput( float dt ) = 0;
 
         /*
          * Update frames / game in current state
@@ -47,3 +48,5 @@ namespace SSEngine
         virtual void Resume() {};
     };
 }
+
+#endif // STATE_H

@@ -42,7 +42,7 @@ namespace SSEngine
 
             // while ( accumulator >= dt )
             // {
-                m_Data->machine.GetActiveState()->HandleInput();
+                m_Data->machine.GetActiveState()->HandleInput( dt );
                 m_Data->machine.GetActiveState()->Update( dt );
 
                 // accumulator -= dt;

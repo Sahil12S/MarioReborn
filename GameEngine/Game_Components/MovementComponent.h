@@ -25,6 +25,11 @@ namespace SSEngine
 
         // Getters & Setters
         const sf::Vector2f& GetVelocity() const;
+        const float& GetMaxVelocity() const;
+
+        void StopVelocity();
+
+        const bool GetState( const unsigned short& state ) const;
 
         // Functions
         void Move( const float& dt, const float& dir_x, const float& dir_y);

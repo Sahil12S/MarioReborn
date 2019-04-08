@@ -6,29 +6,39 @@
 #include "../Game.h"
 #include "../Game_Components/MovementComponent.h"
 #include "../Game_Components/AnimationComponent.h"
+#include "../Game_Components/HitboxComponent.h"
 #include <memory>
 
 namespace SSEngine
 {
-    // Forward declaring the class to let the compiler know about its existence.
+    /* Forward declaration */
+    struct GameData;
+    typedef std::shared_ptr<GameData> GameDataRef;
+
     class AnimationComponent;
     class MovementComponent;
+    class HitboxComponent;
 
     class Entity
     {
     protected:
+        GameDataRef m_Data;
+
         sf::Sprite m_Sprite;
 
         MovementComponent* m_MC;
         AnimationComponent* m_AC;
+        HitboxComponent* m_HC;
 
     public:
         /* Constructors and Destructors*/
-        Entity( );
+        Entity( GameDataRef data );
         virtual ~Entity();
 
         /* Component functions */
         void SetTexture( sf::Texture& tex );
+        void CreateHitboxComponent( const float& offset_x, const float& offset_y,
+                                    const float& width, const float& height );
         void CreateMovementComponent( const float& maxVelocity, const float& acceleration, const float& deceleration );
         void CreateAnimationComponent( sf::Texture& texture );
 

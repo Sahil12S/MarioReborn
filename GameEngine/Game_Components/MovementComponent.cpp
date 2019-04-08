@@ -17,18 +17,72 @@ namespace SSEngine
         return m_Velocity;
     }
 
+    const bool MovementComponent::GetState(const unsigned short& state) const
+    {
+        switch ( state )
+        {
+            case eIdle:
+                if ( m_Velocity.x == 0.f && m_Velocity.y == 0.f)
+                    return true;
+                break;
+
+            case eMoving:
+                if ( m_Velocity.x != 0.f || m_Velocity.y != 0.f)
+                    return true;
+                break;
+
+            case eMovingLeft:
+
+                if ( m_Velocity.x < 0.f && m_Velocity.x >= -m_MaxVelocity )
+                    return true;
+                break;
+
+            case eMovingRight:
+
+                if (m_Velocity.x > 0.f && m_Velocity.x <= m_MaxVelocity )
+                    return true;
+                break;
+
+            case eJumping:
+                if (m_Velocity.y < 0.f)
+                    return true;
+                break;
+
+            case eFalling:
+                if (m_Velocity.y > 0.f)
+                    return true;
+                break;
+
+            case eRunningLeft:
+                if ( m_Velocity.x < -m_MaxVelocity )
+                    return true;
+                break;
+
+            case eRunningRight:
+                if ( m_Velocity.x > m_MaxVelocity )
+                    return true;
+                break;
+
+            default:
+                return false;
+        }
+        return false;
+    }
+
     void MovementComponent::Move( const float& dt, const float& dir_x, const float& dir_y )
     {
         /*m_Velocity.x += dir_x * m_Acceleration;
         m_Velocity.y += dir_y * m_Acceleration;*/
         m_Velocity.x = dir_x * m_MaxVelocity;
-        m_Velocity.y = dir_y * m_MaxVelocity;
 
+        // We are considering jump as dir_y
+        m_Velocity.y = dir_y;
         m_Sprite.move( m_Velocity * dt );
     }
 
     void MovementComponent::Update(const float &dt)
     {
+        m_Sprite.move( m_Velocity * dt );
         // When using acceleration and deceleration
         // which we are not using this time
 
@@ -79,5 +133,16 @@ namespace SSEngine
         }
 
         m_Sprite.move( m_Velocity * dt );*/
+    }
+
+    const float &MovementComponent::GetMaxVelocity() const
+    {
+        return m_MaxVelocity;
+    }
+
+    void MovementComponent::StopVelocity()
+    {
+        m_Velocity.x = 0.f;
+        m_Velocity.y = 0.f;
     }
 }

@@ -27,32 +27,18 @@ namespace SSEngine
 
 
         /* Variables */
-        float m_RunningFactor;
+
 
         bool m_IsJumping;
         bool m_IsFalling;
         bool m_IsMovingLeft;
         bool m_IsMovingRight;
         bool m_IsDucking;
-        bool m_IsRunning;
+
+        float m_RunningFactor;
 
 
         bool m_JustJumped = false;
-
-        // bool m_JumpDuration;
-        // bool m_TimeThisJump;
-
-        // In which direction is mario facing or walking
-        short m_Direction;
-
-
-        // Animation controllers
-        std::map<std::string, sf::Texture> m_PlayerFrames;
-        std::vector<sf::Texture> m_WalkAnimationFrames;
-        unsigned int m_WalkAnimationIterator;
-
-        // Clock to handle animation
-        sf::Clock m_Clock;
 
         // Clock to handle movements
         sf::Clock m_MovementClock;
@@ -88,6 +74,8 @@ namespace SSEngine
         void StopRight();
         // void StopFalling();
         void StopRunning();
+
+        void UpdateAnimation( const float& dt );
 
         void Update( float dt ) override;
         void Draw() override;

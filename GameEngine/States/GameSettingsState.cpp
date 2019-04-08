@@ -102,7 +102,7 @@ namespace SSEngine
         InitButtons();
     }
 
-    void GameSettingsState::HandleInput()
+    void GameSettingsState::HandleInput( float dt )
     {
         sf::Event event;
 

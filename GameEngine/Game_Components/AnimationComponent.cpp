@@ -28,6 +28,7 @@ namespace SSEngine
     {
         m_Animations[key] = new Animation( m_Sprite, m_TextureSheet, animation_timer,
                 start_frame_x, start_frame_y, frames_x, frames_y, width, height );
+        Debug( "Animation component created" )
     }
 
     const bool &AnimationComponent::Play(const std::string &key, const float &dt, const bool &priority)
@@ -79,9 +80,8 @@ namespace SSEngine
         return m_Animations[key]->isDone();
     }
 
-    const bool &
-    AnimationComponent::play(const std::string& key, const float &dt, const float &modifier, const float &modifier_max,
-                             const bool priority)
+    const bool& AnimationComponent::Play(const std::string& key, const float &dt,
+            const float &modifier, const float &modifier_max, const bool priority)
     {
         if (m_PriorityAnimation) //If there is a priority animation
         {

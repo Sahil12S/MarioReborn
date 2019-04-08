@@ -103,7 +103,7 @@ namespace SSEngine
     }
 
     // @override
-    void MainMenuState::HandleInput()
+    void MainMenuState::HandleInput( float dt )
     {
         sf::Event event;
 

@@ -16,7 +16,6 @@ namespace SSEngine
         AssetManager assets;
         InputManager input;
         sf::RenderWindow window;
-        // Entity entity;
     };
 
     typedef std::shared_ptr<GameData> GameDataRef;

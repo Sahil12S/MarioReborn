@@ -1,3 +1,6 @@
+#ifndef PAUSE_STATE_H
+#define PAUSE_STATE_H
+
 #include "State.h"
 #include "../Game.h"
 #include "../Game_Components/Button.h"
@@ -13,13 +16,13 @@ namespace SSEngine
         PauseState( GameDataRef data );
         ~PauseState();
 
-        void Init();
+        void Init() override ;
 
-        void HandleInput();
+        void HandleInput(float dt) override ;
 
-        void Update( float dt );
+        void Update( float dt ) override;
 
-        void Draw();
+        void Draw() override ;
 
     private:
         /* Variables */
@@ -44,3 +47,5 @@ namespace SSEngine
         void InitVariables();
     };
 }
+
+#endif // PAUSE_STATE_H

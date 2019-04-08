@@ -16,7 +16,7 @@ namespace SSEngine
         // m_BackgroundSprite.setTexture( m_Data->assets.GetTexture( "Splash State Background" ) );
     }
 
-    void SplashState::HandleInput()
+    void SplashState::HandleInput( float dt )
     {
         sf::Event event;
 

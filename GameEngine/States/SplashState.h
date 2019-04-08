@@ -1,3 +1,6 @@
+#ifndef SPLASH_STATE_H
+#define SPLASH_STATE_H
+
 #include "State.h"
 #include "../Game.h"
 #include "MainMenuState.h"
@@ -14,7 +17,7 @@ namespace SSEngine
 
         void Init();
 
-        void HandleInput();
+        void HandleInput( float dt );
         void Update( float dt );
         void Draw();
 
@@ -29,3 +32,5 @@ namespace SSEngine
         // std::map<std::string, int> m_KeyBinds;
     };
 }
+
+#endif // SPLASH_STATE_H

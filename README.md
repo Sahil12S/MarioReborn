@@ -20,4 +20,5 @@ An attempt to create game similar to our very favorite Super Mario Bros. using C
 	- Paused State  
 	- Game over state ( To Do )  
 - Key Bindings
-- Player animation and movement
+- Movement Component
+- Animation Component

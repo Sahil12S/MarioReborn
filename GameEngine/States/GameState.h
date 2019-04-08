@@ -1,3 +1,6 @@
+#ifndef GAME_STATE_H
+#define GAME_STATE_H
+
 #include "State.h"
 #include "../Game.h"
 #include "../Entities/Player.h"
@@ -11,8 +14,7 @@ namespace SSEngine
         ~GameState();
 
         void Init() override;
-
-        void HandleInput() override;
+        void HandleInput( float dt ) override;
         void Update( float dt ) override;
         void Draw() override;
 
@@ -38,3 +40,4 @@ namespace SSEngine
         void InitVariables();
     };
 }
+#endif // GAME_STATE_H

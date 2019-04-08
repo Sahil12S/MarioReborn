@@ -5,17 +5,6 @@ namespace SSEngine
     void Player::InitTextures()
     {
         m_Data->assets.LoadTexture( "Mario Sheet", MARIO_SHEET_FILEPATH );
-        // m_WalkAnimationFrames.emplace_back( m_Data->assets.GetTexture( "Mario Idle") );
-/*        m_WalkAnimationFrames.emplace_back( m_Data->assets.GetTexture( "Mario Walk 01" ) );
-        m_WalkAnimationFrames.emplace_back( m_Data->assets.GetTexture( "Mario Walk 02" ) );
-        m_WalkAnimationFrames.emplace_back( m_Data->assets.GetTexture( "Mario Walk 03" ) );
-
-
-        m_PlayerFrames["Idle"] = m_Data->assets.GetTexture( "Mario Idle" );
-        m_PlayerFrames["Jump"] = m_Data->assets.GetTexture( "Mario Jump" );
-        m_PlayerFrames["Turn"] = m_Data->assets.GetTexture( "Mario Turn" );*/
-
-        // m_JumpTexture = m_Data->assets.GetTexture( "Mario Jump" );
     }
 
     void Player::InitSounds()
@@ -31,14 +20,7 @@ namespace SSEngine
         m_IsMovingLeft = false;
         m_IsMovingRight = false;
         m_IsDucking = false;
-        m_IsRunning = false;
-
-        /*m_RunningFactor = 1.0f;*/
-        /*m_WalkAnimationIterator = 0;*/
-
-        // Set default facing direction
-        m_Direction = MarioMovement::eRight;
-
+        m_RunningFactor = 1.f;
     }
 
     void Player::InitComponents()
@@ -46,27 +28,27 @@ namespace SSEngine
 
     }
 
-    Player::Player( GameDataRef data ) : m_Data( move( data ) )
+    Player::Player( GameDataRef data ) : Entity( data ), m_Data( move( data ) )
     {
         InitTextures();
         InitSounds();
         InitVariables();
         InitComponents();
 
-        SetTexture( m_Data->assets.GetTexture( "Mario Idle") );
-
-        CreateMovementComponent( ENTITY_MOVEMENT_SPEED, 0, 0 );
+        CreateMovementComponent( PLAYER_MOVEMENT_SPEED, 0, 0 );
         CreateAnimationComponent( m_Data->assets.GetTexture( "Mario Sheet" ) );
 
         // Animation name, animation timer, start pos X, start pos Y, frames X, frames Y, tile size
-        m_AC->AddAnimation("IDLE_RIGHT", 0.f, 0, 2, 0, 0, TILE_WIDTH, TILE_HEIGHT ); // No animation when idle
-        m_AC->AddAnimation("WALK_RIGHT", WALK_ANIMATION_DURATION, 1, 2, 2, 0, TILE_WIDTH, TILE_HEIGHT );
+        m_AC->AddAnimation("IDLE", 0.f, 0, 2, 0, 0, TILE_WIDTH, TILE_HEIGHT ); // No animation when idle
+        m_AC->AddAnimation("WALK", WALK_ANIMATION_DURATION, 1, 2, 2, 0, TILE_WIDTH, TILE_HEIGHT );
         m_AC->AddAnimation("JUMP", 0.f, 5, 2, 0, 0, TILE_WIDTH, TILE_HEIGHT ); // No animation when jumping
+
+        CreateHitboxComponent( 0.f, 0.f, 20, 32 );
     }
 
     Player::~Player() = default;
 
-/*    void Player::SetPosition(sf::Vector2f startPos)
+    /*void Player::SetPosition(sf::Vector2f startPos)
     {
         m_PlayerSprite.setTexture( m_WalkAnimationFrames.at( 0 ) );
         m_PlayerSprite.setPosition( startPos );
@@ -79,26 +61,32 @@ namespace SSEngine
         // Debug( m_PlayerSprite.getPosition().x )
     }*/
 
-    /*void Player::CreateMovementComponent(const float& maxVelocity)
+    void Player::MoveLeft()
     {
-        m_MC = new MovementComponent( maxVelocity );
-    }*/
-
-    /*void Player::Animate( float dt )
+        m_IsMovingLeft = true;
+    }
+    void Player::StopLeft()
     {
-        if ( m_Clock.getElapsedTime().asSeconds() > WALKING_ANIMATION_DURATION )
-        {
-            // We just want to animate from index 1 to 3.
-            // As at index 0 we have idle position
-            m_WalkAnimationIterator++;
-            m_WalkAnimationIterator %= m_WalkAnimationFrames.size() - 1;
+        m_IsMovingLeft = false;
+    }
 
-            m_PlayerSprite.setTexture( m_WalkAnimationFrames.at( m_WalkAnimationIterator + 1 ) );
+    void Player::MoveRight()
+    {
+        m_IsMovingRight = true;
+    }
+    void Player::StopRight()
+    {
+        m_IsMovingRight = false;
+    }
 
-            m_Clock.restart();
-        }
-    }*/
-
+    void Player::Run()
+    {
+        m_RunningFactor = RUNNING_FACTOR;
+    }
+    void Player::StopRunning()
+    {
+        m_RunningFactor = 1.f;
+    }
 
     void Player::Jump()
     {
@@ -111,137 +99,117 @@ namespace SSEngine
         }
     }
 
-    void Player::Run()
-    {
-        m_IsRunning = true;
-    }
-
-    /*void Player::Duck()
-    {
-        if ( !m_IsJumping && !m_IsFalling )
-        {
-            m_IsDucking = true;
-        }
-    }*/
-
-    void Player::MoveLeft()
-    {
-        m_IsMovingLeft = true;
-    }
-
-    void Player::MoveRight()
-    {
-        m_IsMovingRight = true;
-    }
-
     /*void Player::StopJump()
     {
         m_IsJumping = false;
     }
 
+     void Player::Duck()
+    {
+        if ( !m_IsJumping && !m_IsFalling )
+        {
+            m_IsDucking = true;
+        }
+    }
+
     void Player::StopDuck()
     {
         m_IsDucking = false;
-    }*/
-
-    void Player::StopLeft()
-    {
-        m_IsMovingLeft = false;
     }
 
-    void Player::StopRight()
-    {
-        m_IsMovingRight = false;
-    }
-
-    /*void Player::StopFalling()
+    void Player::StopFalling()
     {
         m_IsFalling = false;
     }*/
 
-    void Player::StopRunning()
+    void Player::UpdateAnimation(const float &dt)
     {
-        m_IsRunning = false;
+        if ( m_MC->GetState( eIdle ) )
+        {
+            m_AC->Play("IDLE", dt);
+        }
+        else if ( m_MC->GetState( eMovingLeft ) )
+        {
+            if ( m_Sprite.getScale().x > 0.f )
+            {
+                m_Sprite.setOrigin(16.f, 0.f);
+                m_Sprite.setScale(-2.f, 2.f);
+            }
+
+            m_AC->Play("WALK", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
+        }
+        else if ( m_MC->GetState( eMovingRight ) )
+        {
+            if (m_Sprite.getScale().x < 0.f)
+            {
+                m_Sprite.setOrigin(0.f, 0.f);
+                m_Sprite.setScale(2.f, 2.f);
+            }
+
+            m_AC->Play("WALK", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity());
+        }
+        else if ( m_MC->GetState( eRunningLeft ) )
+        {
+            if ( m_Sprite.getScale().x > 0.f )
+            {
+                m_Sprite.setOrigin(16.f, 0.f);
+                m_Sprite.setScale(-2.f, 2.f);
+            }
+
+            m_AC->Play("WALK", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity() * m_RunningFactor );
+        }
+        else if ( m_MC->GetState( eRunningRight ) )
+        {
+            if (m_Sprite.getScale().x < 0.f)
+            {
+                m_Sprite.setOrigin(0.f, 0.f);
+                m_Sprite.setScale(2.f, 2.f);
+            }
+
+            m_AC->Play("WALK", dt, m_MC->GetVelocity().x, m_MC->GetMaxVelocity() * m_RunningFactor );
+        }
+        else if ( m_MC->GetState( eJumping ) )
+        {
+            m_AC->Play("JUMP", dt, m_MC->GetVelocity().y, JUMP_SPEED);
+        }
+        else if ( m_MC->GetState( eFalling ) )
+        {
+            m_AC->Play("JUMP", dt, m_MC->GetVelocity().y, GRAVITY);
+        }
+
     }
 
     void Player::Update(float dt)
     {
-        // m_MC->Update( dt );
-
-
         //TODO: Correct flipping positions
         if ( m_IsMovingLeft )
         {
-            // Walking in left direction
-            if (m_Direction != MarioMovement::eLeft )
-            {
-                m_Direction = MarioMovement::eLeft;
-                m_Sprite.setOrigin( 20.0f, 0.0f );
-                m_Sprite.scale( -1.0f, 1.0f );
-            }
-
-            Move( dt, -1.0f, 0.0f);
-
-            // Animate( dt );
-
+            Move( dt, -1.0f * m_RunningFactor, 0.0f);
+            UpdateAnimation( dt );
         }
         else if ( m_IsMovingRight )
         {
-            // Walking towards right
-            if (m_Direction != MarioMovement::eRight )
-            {
-                m_Direction = MarioMovement::eRight;
-                m_Sprite.setOrigin( 0.0f, 0.0f );
-                m_Sprite.scale( -1.0f, 1.0f );
-
-            }
-            Move( dt, 1.0f, 0.0f);
-
-            m_AC->Play("WALK_RIGHT", dt);
-            // Animate( dt );
-
+            Move( dt, 1.0f * m_RunningFactor, 0.0f);
+            UpdateAnimation( dt );
         }
         else
         {
-            // Standing idle
-            m_AC->Play("IDLE_RIGHT", dt);
+            m_MC->StopVelocity();
+            UpdateAnimation( dt );
         }
 
-
-        // Complete the jump if you are moving in some direction
+        // Jump
         if ( m_IsJumping )
         {
-            // m_Sprite.setTexture( m_PlayerFrames["Jump"] );
+            Move( dt, 0.0f, -JUMP_SPEED );
+            UpdateAnimation( dt );
 
-            if ( m_IsMovingRight )
-            {
-                Move( dt, JUMP_SPEED * dt, -JUMP_SPEED * dt );
-            }
-            else if ( m_IsMovingLeft )
-            {
-                Move( dt, -JUMP_SPEED * dt, -JUMP_SPEED * dt );
-            }
-            else
-            {
-                Move( dt, 0.0f, -JUMP_SPEED * dt );
-            }
-            m_AC->Play( "JUMP", dt );
         }
-        // And fall vertically downward if no directional key is pressed.
+        // Fall
         else if ( m_IsFalling )
         {
-            if ( m_IsMovingRight )
-            {
-                Move( dt, GRAVITY * dt, GRAVITY * dt );
-            }
-            else if ( m_IsMovingLeft )
-            {
-                Move( dt, -GRAVITY * dt, GRAVITY * dt );
-            }
-            else
-            {
-                Move( dt, 0.0f, JUMP_SPEED * dt );
-            }
+            Move( dt, 0.0f, GRAVITY );
+            UpdateAnimation( dt );
         }
 
         if ( m_JustJumped && m_MovementClock.getElapsedTime().asSeconds() > JUMP_DURATION )
@@ -257,10 +225,14 @@ namespace SSEngine
             m_IsFalling = false;
         }
 
+        m_HC->Update();
+
     }
 
     void Player::Draw()
     {
         m_Data->window.draw( m_Sprite );
+
+        m_HC->Draw();
     }
 }

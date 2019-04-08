@@ -10,17 +10,6 @@ namespace SSEngine
 {
     class GameSettingsState : public State
     {
-    public:
-        GameSettingsState( GameDataRef data );
-        ~GameSettingsState();
-
-        // Initializes the state
-        void Init();
-
-        void HandleInput();
-        void Update( float dt );
-        void Draw();
-
     private:
         /* Variables */
         GameDataRef m_Data;
@@ -42,6 +31,18 @@ namespace SSEngine
         void InitButtons();
 
         void InitVariables();
+
+
+    public:
+        GameSettingsState( GameDataRef data );
+        ~GameSettingsState();
+
+        // Initializes the state
+        void Init() override;
+
+        void HandleInput( float dt ) override;
+        void Update( float dt ) override;
+        void Draw() override;
     };
 }
 
